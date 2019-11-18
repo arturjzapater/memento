@@ -1,7 +1,7 @@
 # Memento
 
 ## To do list
-- [ ] Finish custom repeat
+- [x] Finish custom repeat
 - [ ] Tidy up `NotifService`
 - [ ] Add a feature to view set memos
   - [ ] Save memo information when setting it up

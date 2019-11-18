@@ -23,7 +23,7 @@ export default class NotifService {
     })
   }
 
-  scheduleNotif(title, text, date, repeat) {
+  scheduleNotif(title, text, date, repeatType, repeatTime) {
     this.lastId++
     PushNotification.localNotificationSchedule({
       date: new Date(date),
@@ -44,8 +44,8 @@ export default class NotifService {
       message: text,
       playSound: true,
       soundName: 'default',
-      repeatType: repeat,
-      //repeatTime: repeat == 'time' ? 10000 : undefined,
+      repeatType: repeatType,
+      repeatTime: repeatType == 'time' ? repeatTime * 3600000 : undefined,
     })
   }
 }

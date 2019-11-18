@@ -5,25 +5,27 @@ import NotifService from './NotifService'
 import { styles } from './styles'
 
 const notif = new NotifService()
+const now = new Date()
 
 export default function Memento() {
-  const now = new Date()
-
   const [ repeat, setRepeat ] = useState(repeatOptions[0])
+  const [ repeatTime, setRepeatTime ] = useState(48)
   const [ date, setDate ] = useState(now.toDateString())
   const [ time, setTime ] = useState(formatTime(now))
   const [ showDatePicker, setShowDatePicker ] = useState(false)
   const [ showTimePicker, setShowTimePicker ] = useState(false)
-
   const [ text, setText ] = useState('')
   const [ title, setTitle ] = useState('')
-
   const [ page, setPage ] = useState('set')
 
   const dateHandler = (event, newDate) => {
     setShowDatePicker(false)
     setDate(newDate ? newDate.toDateString() : date)
   }
+
+  const decreaseRepeat = () => setRepeatTime(repeatTime - 1)
+
+  const increaseRepeat = () => setRepeatTime(repeatTime + 1)
 
   const timeHandler = (event, newTime) => {
     setShowTimePicker(false)
@@ -45,6 +47,10 @@ export default function Memento() {
         textChange={newText => setText(newText)}
         repeat={repeat}
         repeatFunc={toggleRepeat}
+        repeatTime={repeatTime}
+        repeatTimeFunc={newTime => setRepeatTime(+newTime)}
+        decreaseRepeat={decreaseRepeat}
+        increaseRepeat={increaseRepeat}
         dateText={date}
         dateFunc={() => setShowDatePicker(true)}
         timeText={time}
@@ -80,6 +86,21 @@ const Menu = props => (
   </View>
 )
 
+const RepeatTile = props => (
+  <View style={styles.row}>
+    <SignButton style={styles.touchMinus} text='-' func={props.decreaseRepeat} />
+    <Text style={styles.label}>Every </Text>
+    <TextInput
+      style={{ ...styles.labelBold, ...styles.timeInput }}
+      onChangeText={props.repeatTimeFunc}
+      value={props.repeatTime.toString()}
+      keyboardType='numeric'
+    />
+    <Text style={styles.label}> hours</Text>
+    <SignButton style={styles.touchPlus} text='+' func={props.increaseRepeat} />
+  </View>
+)
+
 const Settings = props => (
   <>
     <View styles={styles.container}>
@@ -99,27 +120,46 @@ const Settings = props => (
         multiline={true}
         numberOfLines={4}
       />
-    </View>
-    <View styles={styles.container}>
+
       <TouchableOpacity style={styles.touchable} onPress={props.repeatFunc}>
         <Text style={styles.label}>Repeat: </Text>
         <Text style={styles.labelBold}>{props.repeat.key}</Text>
       </TouchableOpacity>
 
-      {props.repeatText == 'Custom' && <Button textStyle={styles.labelBold} touchStyle={styles.touchable} text='Coming Soon!' />}
+      {props.repeat.value == 'time' && <RepeatTile 
+        repeatTime={props.repeatTime}
+        repeatTimeFunc={props.repeatTimeFunc}
+        decreaseRepeat={props.decreaseRepeat}
+        increaseRepeat={props.increaseRepeat}
+      />}
 
-      <Button textStyle={styles.labelBold} touchStyle={styles.touchable} func={props.dateFunc} text={props.dateText} />
-      <Button textStyle={styles.labelBold} touchStyle={styles.touchable} func={props.timeFunc} text={props.timeText} />
-    </View>
-    <View>
+      <Button
+        textStyle={styles.labelBold}
+        touchStyle={styles.touchable}
+        func={props.dateFunc}
+        text={props.dateText}
+      />
+      <Button
+        textStyle={styles.labelBold}
+        touchStyle={styles.touchable}
+        func={props.timeFunc}
+        text={props.timeText}
+      />
+
       <Button
         textStyle={styles.labelBold}
         touchStyle={styles.touchableActive}
+        func={() => notif.scheduleNotif(props.title, props.text, `${props.dateText} ${props.timeText}`, props.repeat.value, props.repeatTime)}
         text='Set Notification'
-        func={() => notif.scheduleNotif(props.title, props.text, `${props.dateText} ${props.timeText}`, props.repeat.value)}
       />
     </View>
   </>
+)
+
+const SignButton = props => (
+  <TouchableOpacity style={{ ...styles.touchButton, ...props.style}} onPress={props.func}>
+    <Text style={styles.labelBold}>{props.text}</Text>
+  </TouchableOpacity>
 )
 
 const formatMinutes = minutes => minutes.toString().length == 1 ? `0${minutes}` : minutes
@@ -131,5 +171,5 @@ const repeatOptions = [
   { key: 'Monthly', value: 'month' },
   { key: 'Weekly', value: 'week' },
   { key: 'Daily', value: 'day' },
-  { key: 'Custom', value: undefined }, //Change value to 'time'
+  { key: 'Custom', value: 'time' }, //Change value to 'time'
 ]
