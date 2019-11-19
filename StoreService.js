@@ -1,22 +1,22 @@
 import AsyncStorage from '@react-native-community/async-storage'
 
-export { findAll, findOne, remove, update }
+export { find, findOne, remove, update }
 
 const KEY = '@notifications'
 
-const findAll = () => AsyncStorage.getItem(KEY)
+const find = () => AsyncStorage.getItem(KEY)
     .then(data => data != null ? JSON.parse(data).items : [])
 
-const findOne = id => findAll()
+const findOne = id => find()
     .then(data => data.find(x => x.id == id))
 
-const remove = id => findAll()
+const remove = id => find()
     .then(items => items.filter(x => x.id != id))
     .then(items => ({ items }))
     .then(JSON.stringify)
     .then(data => AsyncStorage.setItem(KEY, data))
 
-const update = item => findAll()
+const update = item => find()
     .then(data => data.concat([ item ]))
     .then(items => ({ items }))
     .then(JSON.stringify)
