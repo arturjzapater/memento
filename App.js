@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
 import { Text, View } from 'react-native'
 import DateTimePicker from '@react-native-community/datetimepicker'
+import { Menu } from './components/Menu'
+import { MessageBox } from './components/MessageBox'
 import { SetPage } from './components/SetPage'
 import { ViewPage } from './components/ViewPage'
-import { Menu } from './components/Menu'
 import { styles } from './styles'
+import NotifService from './NotifService'
 
 export default function Memento() {
   const [ repeat, setRepeat ] = useState(repeatOptions[0])
@@ -16,6 +18,7 @@ export default function Memento() {
   const [ text, setText ] = useState('')
   const [ title, setTitle ] = useState('')
   const [ page, setPage ] = useState('set')
+  const [ message, setMessage ] = useState('Some sample message.')
 
   const dateHandler = (event, newDate) => {
     setShowDatePicker(false)
@@ -25,6 +28,24 @@ export default function Memento() {
   const decreaseRepeat = () => setRepeatTime(repeatTime - 1)
 
   const increaseRepeat = () => setRepeatTime(repeatTime + 1)
+
+  const showSet = () => {
+    setPage('set')
+    setMessage('')
+  }
+
+  const showView = () => {
+    setPage('view')
+    setMessage('')
+  }
+
+  const submitHandler = () => {
+    notif.scheduleNotif(title, text, `${date} ${time}`, repeat.value, repeatTime)
+    setMessage(`Memo ${title} succesfully set!`)
+    setRepeat(repeatOptions[0])
+    setText('')
+    setTitle('')
+  }
 
   const timeHandler = (event, newTime) => {
     setShowTimePicker(false)
@@ -38,7 +59,8 @@ export default function Memento() {
   return(
     <View style={styles.main}>
       <Text style={styles.title}>Memento</Text>
-      <Menu active={page} set={() => setPage('set')} view={() => setPage('view')} />
+      {message != '' && <MessageBox text={message} close={() => setMessage('')} />}
+      <Menu active={page} set={showSet} view={showView} />
       {page == 'set' && <SetPage
         title={title}
         titleChange={newText => setTitle(newText)}
@@ -54,6 +76,7 @@ export default function Memento() {
         dateFunc={() => setShowDatePicker(true)}
         timeText={time}
         timeFunc={() => setShowTimePicker(true)}
+        submitHandler={submitHandler}
       />}
 
       {page == 'view' && <ViewPage />}
@@ -67,6 +90,8 @@ export default function Memento() {
 const formatMinutes = minutes => minutes.toString().length == 1 ? `0${minutes}` : minutes
 
 const formatTime = time => `${time.getHours()}:${formatMinutes(time.getMinutes())}`
+
+const notif = new NotifService()
 
 const now = new Date()
 

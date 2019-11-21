@@ -1,12 +1,9 @@
 import React from 'react'
 import { Text, TextInput, TouchableOpacity, View } from 'react-native'
-import NotifService from '../NotifService'
 import { Button } from './Button'
 import { styles } from '../styles'
 
 export { SetPage }
-
-const notif = new NotifService()
 
 const SetPage = props => (
     <>
@@ -25,7 +22,7 @@ const SetPage = props => (
                 value={props.text}
                 maxLength={240}
                 multiline={true}
-                numberOfLines={4}
+                numberOfLines={3}
             />
     
             <TouchableOpacity style={styles.touchable} onPress={props.repeatFunc}>
@@ -56,7 +53,7 @@ const SetPage = props => (
             <Button
                 textStyle={styles.labelBold}
                 touchStyle={styles.touchableActive}
-                func={() => notif.scheduleNotif(props.title, props.text, `${props.dateText} ${props.timeText}`, props.repeat.value, props.repeatTime)}
+                func={props.submitHandler}
                 text='Set Notification'
             />
         </View>
@@ -82,4 +79,4 @@ const SignButton = props => (
     <TouchableOpacity style={{ ...styles.touchButton, ...props.style}} onPress={props.func}>
       <Text style={styles.labelBold}>{props.text}</Text>
     </TouchableOpacity>
-  )
+)

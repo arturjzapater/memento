@@ -4,7 +4,7 @@ const colours = {
     activeButton: 'hsl(270, 70%, 60%)',
     darkMain: 'hsl(270, 44%, 7%)',
     darkDetail: 'hsl(270, 35%, 12%)',
-    lightDetail: 'hsl(270, 34%, 69%)',
+    lightDetail: 'hsl(24, 75%, 69%)',
     lightEmphasis: 'hsl(24, 65%, 99%)',
     lightMain: 'hsl(320, 15%, 90%)',
 }
@@ -48,6 +48,23 @@ export const styles = StyleSheet.create({
         margin: 4,
         marginBottom: 10,
         width: 310,
+    },
+    message: {
+        color: colours.darkDetail,
+        fontSize: 15,
+        fontWeight: 'bold',
+    },
+    msgBox: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        backgroundColor: colours.lightDetail,
+        borderRadius: 20,
+        margin: 4,
+        padding: 5,
+        paddingLeft: 20,
+        paddingRight: 15,
+        width: '100%',
     },
     label: {
         color: colours.lightMain,
