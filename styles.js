@@ -4,7 +4,7 @@ const colours = {
     activeButton: 'hsl(270, 70%, 60%)',
     darkMain: 'hsl(270, 44%, 7%)',
     darkDetail: 'hsl(270, 35%, 12%)',
-    lightDetail: 'hsl(24, 75%, 69%)',
+    lightDetail: 'hsl(30, 75%, 60%)',
     lightEmphasis: 'hsl(24, 65%, 99%)',
     lightMain: 'hsl(320, 15%, 90%)',
 }

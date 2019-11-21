@@ -18,7 +18,7 @@ export default function Memento() {
   const [ text, setText ] = useState('')
   const [ title, setTitle ] = useState('')
   const [ page, setPage ] = useState('set')
-  const [ message, setMessage ] = useState('Some sample message.')
+  const [ message, setMessage ] = useState('')
 
   const dateHandler = (event, newDate) => {
     setShowDatePicker(false)
@@ -41,7 +41,7 @@ export default function Memento() {
 
   const submitHandler = () => {
     notif.scheduleNotif(title, text, `${date} ${time}`, repeat.value, repeatTime)
-    setMessage(`Memo ${title} succesfully set!`)
+    setMessage(`I will remind you about ${title}!`)
     setRepeat(repeatOptions[0])
     setText('')
     setTitle('')
