@@ -1,7 +1,7 @@
-import React, { useEffect, useReducer, useState } from 'react'
+import React, { useEffect, useReducer } from 'react'
 import { FlatList, Text, TouchableOpacity, View } from 'react-native'
 import { styles } from '../styles'
-import { find, findAndRemoveold } from '../StoreService'
+import { findAndRemoveold } from '../StoreService'
 import NotifService from '../NotifService'
 
 export { ViewPage }
