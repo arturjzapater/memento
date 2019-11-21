@@ -8,28 +8,27 @@ export { ViewPage }
 
 const notif = new NotifService()
 
+const actions = {
+    LOAD: (state, action) => ({
+        ...state,
+        status: 'loading',
+    }),
+    RESOLVE: (state, action) => ({
+        ...state,
+        status: 'success',
+        data: action.data,
+    }),
+    REJECT: (state, action) => ({
+        ...state,
+        status: 'failure',
+        error: action.error,
+    }),
+    default: state => state,
+}
+
 const reducer = (state, action) => {
-    switch (action.type) {
-        case 'LOAD':
-            return {
-                ...state,
-                status: 'loading',
-            }
-        case 'RESOLVE':
-            return {
-                ...state,
-                status: 'success',
-                data: action.data,
-            }
-        case 'REJECT':
-            return {
-                ...state,
-                status: 'failure',
-                error: action.error,
-            }
-        default:
-            return state
-    }
+    const handler = actions[action.type] || actions.default
+    return handler(state, action)
 }
 
 const initialState = {
