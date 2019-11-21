@@ -1,13 +1,11 @@
 import { Alert } from 'react-native'
 import PushNotification from 'react-native-push-notification'
-import { find, update } from './StoreService'
-import AsyncStorage from '@react-native-community/async-storage'
+import { find, remove, update } from './StoreService'
 
 export default class NotifService {
 
   constructor() {
     this.configure()
-    this.lastId = 0
   }
 
   configure(gcm = "") {
@@ -25,8 +23,13 @@ export default class NotifService {
     })
   }
 
+  cancelNotif(id) {
+    PushNotification.cancelLocalNotifications({ id: id.toString() })
+    return remove(id)
+      .catch(console.log)
+  }
+
   scheduleNotif(title, text, date, repeatType, repeatTime) {
-    //AsyncStorage.removeItem('@notifications')
     getLastId()
       .then(id => {
         const newId = id + 1
@@ -51,11 +54,8 @@ const pushNotif = (id, title, text, date, repeatType, repeatTime) =>
     largeIcon: "ic_launcher",
     smallIcon: "ic_notification",
     subText: "Remember, remember!",
-    color: "purple",
     vibrate: true,
     vibration: 1000,
-    tag: 'some_tag',
-    group: "group",
     ongoing: false,
     title: title,
     message: text,

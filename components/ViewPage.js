@@ -1,24 +1,63 @@
-import React, { useEffect, useState } from 'react'
-import { FlatList, Text, View } from 'react-native'
+import React, { useEffect, useReducer, useState } from 'react'
+import { FlatList, Text, TouchableOpacity, View } from 'react-native'
 import { styles } from '../styles'
-import { find } from '../StoreService'
+import { find, findAndRemoveold } from '../StoreService'
+import NotifService from '../NotifService'
 
 export { ViewPage }
 
+const notif = new NotifService()
+
+const reducer = (state, action) => {
+    switch (action.type) {
+        case 'LOAD':
+            return {
+                ...state,
+                status: 'loading',
+            }
+        case 'RESOLVE':
+            return {
+                ...state,
+                status: 'success',
+                data: action.data,
+            }
+        case 'REJECT':
+            return {
+                ...state,
+                status: 'failure',
+                error: action.error,
+            }
+        default:
+            return state
+    }
+}
+
+const initialState = {
+    status: 'loading',
+    data: [],
+    error: null,
+}
+
 const ViewPage = props => {
-    const [ data, setData ] = useState({})
+    const [ state, dispatch ] = useReducer(reducer, initialState)
 
     useEffect(() => {
-        find()
-            .then(setData)
-    }, [])
+        if (state.status == 'loading') findAndRemoveold()
+            .then(data => data.sort((a, b) => new Date(a.date) > new Date(b.date)))
+            .then(data => dispatch({ type: 'RESOLVE', data }))
+            .catch(err => dispatch({ type: 'REJECT', err }))
+    }, [state.status])
+
+    const cancel = id => notif.cancelNotif(id)
+            .then(d => dispatch({ type: 'LOAD' }))
+    
 
     return(
         <View style={styles.container}>
             <FlatList
-                data={data}
-                renderItem={({ item }) => <Item title={item.title} date={item.date} repeatType={item.repeatType} repeatTime={item.repeatTime} />}
-                keyExtractor={item => item.id}
+                data={state.data}
+                renderItem={({ item }) => <Item cancel={() => cancel(item.id)} title={item.title} date={item.date} repeatType={item.repeatType} repeatTime={item.repeatTime} />}
+                keyExtractor={item => `item-${item.id}`}
             />
         </View>
     )
@@ -35,7 +74,9 @@ const Item = props => (
                     : getRepeatText(props.repeatType)}
             </Text>
         </View>
-        <Text style={{ fontSize: 30 }}>D</Text>
+        <TouchableOpacity onPress={props.cancel}>
+            <Text style={{ fontSize: 30 }}>D</Text>
+        </TouchableOpacity>
     </View>
 )
 

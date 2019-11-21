@@ -62,12 +62,6 @@ const SetPage = props => (
         </View>
     </>
 )
-/*
-const Button = props => (
-    <TouchableOpacity style={props.touchStyle} onPress={props.func}>
-        <Text style={props.textStyle}>{props.text}</Text>
-    </TouchableOpacity>
-)*/
 
 const RepeatTile = props => (
     <View style={styles.row}>
