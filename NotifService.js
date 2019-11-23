@@ -34,21 +34,6 @@ const cancelNotif = id => {
     .catch(console.log)
 }
 
-const scheduleNotif = (title, text, date, repeatType, repeatTime) => {
-  getLastId()
-    .then(id => {
-      const newId = id + 1
-      const newTime = repeatType == 'time' ? repeatTime * 3600000 : undefined
-      pushNotif(newId, title, text, date, repeatType, newTime)
-      update({ id: newId, title, date, repeatType, repeatTime : newTime })
-      return({ id: newId, title, date, repeatType, repeatTime : newTime })
-    })
-    .catch(console.log)
-}
-
-const snoozeNotif = (title, text) => getLastId()
-  .then(id => pushNotif(id + 1, title, text, new Date(Date.now() + 600000)))
-
 const getLastId = () => find()
   .then(data => data.reduce((a, b) => b.id > a ? b.id : a, 0))
 
@@ -71,3 +56,18 @@ const pushNotif = (id, title, text, date, repeatType, repeatTime) =>
     repeatType: repeatType,
     repeatTime: repeatTime,
   })
+
+const scheduleNotif = (title, text, date, repeatType, repeatTime) => {
+  getLastId()
+    .then(id => {
+      const newId = id + 1
+      const newTime = repeatType == 'time' ? repeatTime * 3600000 : undefined
+      pushNotif(newId, title, text, date, repeatType, newTime)
+      update({ id: newId, title, date, repeatType, repeatTime : newTime })
+      return({ id: newId, title, date, repeatType, repeatTime : newTime })
+    })
+    .catch(console.log)
+}
+
+const snoozeNotif = (title, text) => getLastId()
+  .then(id => pushNotif(id + 1, title, text, new Date(Date.now() + 600000)))
