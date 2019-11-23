@@ -5,12 +5,7 @@ import { find, remove, removeAll, update } from './StoreService'
 export { cancelAllNotifs, cancelNotif, scheduleNotif }
 
 PushNotification.configure({
-  onRegister: function(token) {
-    console.log("TOKEN:", token)
-  },
-  onNotification: function(notification) {
-    console.log("NOTIFICATION:", notification)
-    Alert.alert(
+  onNotification: notification => Alert.alert(
       notification.title,
       notification.message,
       [
@@ -22,8 +17,7 @@ PushNotification.configure({
           text: 'Dismiss',
         },
       ]
-    )
-  },
+    ),
   senderID: '',
   popInitialNotification: true,
   requestPermissions: true,
