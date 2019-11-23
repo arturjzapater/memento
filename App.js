@@ -8,7 +8,7 @@ import { ViewPage } from './components/ViewPage'
 import { styles } from './styles'
 import { scheduleNotif } from './NotifService'
 
-export default function Memento() {
+export default () => {
   const [ repeat, setRepeat ] = useState(repeatOptions[0])
   const [ repeatTime, setRepeatTime ] = useState(48)
   const [ date, setDate ] = useState(now.toDateString())

@@ -2,8 +2,6 @@ import { Alert } from 'react-native'
 import PushNotification from 'react-native-push-notification'
 import { find, remove, removeAll, update } from './StoreService'
 
-export { cancelAllNotifs, cancelNotif, scheduleNotif }
-
 PushNotification.configure({
   onNotification: notification => Alert.alert(
       notification.title,
@@ -23,14 +21,26 @@ PushNotification.configure({
   requestPermissions: true,
 })
 
-const cancelAllNotifs = () => {
+export const cancelAllNotifs = () => {
   PushNotification.cancelAllLocalNotifications()
   return removeAll()
 }
 
-const cancelNotif = id => {
+export const cancelNotif = id => {
   PushNotification.cancelLocalNotifications({ id: id.toString() })
   return remove(id)
+    .catch(console.log)
+}
+
+export const scheduleNotif = (title, text, date, repeatType, repeatTime) => {
+  getLastId()
+    .then(id => {
+      const newId = id + 1
+      const newTime = repeatType == 'time' ? repeatTime * 3600000 : undefined
+      pushNotif(newId, title, text, date, repeatType, newTime)
+      update({ id: newId, title, date, repeatType, repeatTime : newTime })
+      return({ id: newId, title, date, repeatType, repeatTime : newTime })
+    })
     .catch(console.log)
 }
 
@@ -56,18 +66,6 @@ const pushNotif = (id, title, text, date, repeatType, repeatTime) =>
     repeatType: repeatType,
     repeatTime: repeatTime,
   })
-
-const scheduleNotif = (title, text, date, repeatType, repeatTime) => {
-  getLastId()
-    .then(id => {
-      const newId = id + 1
-      const newTime = repeatType == 'time' ? repeatTime * 3600000 : undefined
-      pushNotif(newId, title, text, date, repeatType, newTime)
-      update({ id: newId, title, date, repeatType, repeatTime : newTime })
-      return({ id: newId, title, date, repeatType, repeatTime : newTime })
-    })
-    .catch(console.log)
-}
 
 const snoozeNotif = (title, text) => getLastId()
   .then(id => pushNotif(id + 1, title, text, new Date(Date.now() + 600000)))
