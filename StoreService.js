@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-community/async-storage'
 
-export { find, findAndRemoveold, findOne, remove, update }
+export { find, findAndRemoveold, findOne, remove, removeAll, update }
 
 const KEY = '@notifications'
 
@@ -25,6 +25,8 @@ const remove = id => find()
     .then(items => ({ items }))
     .then(JSON.stringify)
     .then(data => AsyncStorage.setItem(KEY, data))
+
+const removeAll = () => AsyncStorage.removeItem(KEY)
 
 const update = item => find()
     .then(data => data.concat([ item ]))

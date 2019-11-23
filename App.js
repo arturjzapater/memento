@@ -6,7 +6,7 @@ import { MessageBox } from './components/MessageBox'
 import { SetPage } from './components/SetPage'
 import { ViewPage } from './components/ViewPage'
 import { styles } from './styles'
-import NotifService from './NotifService'
+import { scheduleNotif } from './NotifService'
 
 export default function Memento() {
   const [ repeat, setRepeat ] = useState(repeatOptions[0])
@@ -49,7 +49,7 @@ export default function Memento() {
   }
 
   const submitHandler = () => {
-    notif.scheduleNotif(title, text, `${date} ${time}`, repeat.value, repeatTime)
+    scheduleNotif(title, text, `${date} ${time}`, repeat.value, repeatTime)
     setMessage(`I will remind you about ${title}!`)
     setRepeat(repeatOptions[0])
     setText('')
@@ -100,8 +100,6 @@ export default function Memento() {
 const formatMinutes = minutes => minutes.toString().length == 1 ? `0${minutes}` : minutes
 
 const formatTime = time => `${time.getHours()}:${formatMinutes(time.getMinutes())}`
-
-const notif = new NotifService()
 
 const now = new Date()
 

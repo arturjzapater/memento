@@ -1,12 +1,11 @@
 import React, { useEffect, useReducer } from 'react'
 import { FlatList, Text, TouchableOpacity, View } from 'react-native'
+import { Button } from './Button'
 import { styles } from '../styles'
 import { findAndRemoveold } from '../StoreService'
-import NotifService from '../NotifService'
+import { cancelAllNotifs, cancelNotif } from '../NotifService'
 
 export { ViewPage }
-
-const notif = new NotifService()
 
 const actions = {
     LOAD: (state, action) => ({
@@ -47,9 +46,11 @@ const ViewPage = props => {
             .catch(err => dispatch({ type: 'REJECT', err }))
     }, [state.status])
 
-    const cancel = id => notif.cancelNotif(id)
-            .then(d => dispatch({ type: 'LOAD' }))
+    const cancel = id => cancelNotif(id)
+            .then(_ => dispatch({ type: 'LOAD' }))
     
+    const cancelAll = () => cancelAllNotifs()
+            .then(_ => dispatch({ type: 'LOAD' }))
 
     return(
         <View style={styles.container}>
@@ -57,6 +58,12 @@ const ViewPage = props => {
                 data={state.data}
                 renderItem={({ item }) => <Item cancel={() => cancel(item.id)} title={item.title} date={item.date} repeatType={item.repeatType} repeatTime={item.repeatTime} />}
                 keyExtractor={item => `item-${item.id}`}
+            />
+            <Button
+                textStyle={styles.labelBold}
+                touchStyle={styles.touchDanger}
+                func={cancelAll}
+                text='Cancel All Memos'
             />
         </View>
     )
