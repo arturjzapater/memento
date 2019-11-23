@@ -29,6 +29,15 @@ export default function Memento() {
 
   const increaseRepeat = () => setRepeatTime(repeatTime + 1)
 
+  const resetFields = () => {
+    const now = new Date()
+    setRepeat(repeatOptions[0])
+    setTitle('')
+    setText('')
+    setDate(now.toDateString())
+    setTime(formatTime(now))
+  }
+
   const showSet = () => {
     setPage('set')
     setMessage('')
@@ -77,6 +86,7 @@ export default function Memento() {
         timeText={time}
         timeFunc={() => setShowTimePicker(true)}
         submitHandler={submitHandler}
+        reset={resetFields}
       />}
 
       {page == 'view' && <ViewPage />}

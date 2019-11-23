@@ -56,6 +56,12 @@ const SetPage = props => (
                 func={props.submitHandler}
                 text='Set Notification'
             />
+            <Button
+                textStyle={styles.labelBold}
+                touchStyle={styles.touchDanger}
+                func={props.reset}
+                text='Reset Fields'
+            />
         </View>
     </>
 )
