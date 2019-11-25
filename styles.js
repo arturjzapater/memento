@@ -10,6 +10,123 @@ const colours = {
 }
 
 export const styles = StyleSheet.create({
+    bold: {
+        fontWeight: 'bold',
+    },
+    container: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        width: 310,
+    },
+    item: {
+        alignItems: 'center',
+        alignSelf: 'stretch',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        backgroundColor: colours.darkDetail,
+        padding: 20,
+        margin: 4,
+    },
+    itemDesc: {
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'flex-start',
+    },
+    itemLabel: {
+        flexDirection: 'row',
+        maxWidth: 240,
+    },
+    label: {
+        color: colours.lightMain,
+        fontSize: 18,
+    },
+    main: {
+        backgroundColor: colours.darkMain,
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'space-between',
+    },
+    menu: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        margin: 4,
+    },
+    message: {
+        color: colours.darkDetail,
+        fontSize: 15,
+    },
+    msgBox: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        backgroundColor: colours.lightDetail,
+        borderRadius: 20,
+        margin: 4,
+        padding: 5,
+        paddingLeft: 20,
+        paddingRight: 15,
+        width: '100%',
+    },
+    textInput: {
+        alignSelf: 'stretch',
+        backgroundColor: colours.darkDetail,
+        borderRadius: 20,
+        margin: 4,
+        padding: 15,
+        paddingLeft: 30,
+        paddingRight: 30,
+    },
+    timeInput: {
+        backgroundColor: colours.darkDetail,
+        padding: 15,
+        paddingLeft: 30,
+        paddingRight: 30,
+    },
+    touch: {
+        alignItems: 'center',
+        alignSelf: 'stretch',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        backgroundColor: colours.darkDetail,
+        borderRadius: 30,
+        margin: 4,
+        padding: 15,
+    },
+    touchAction: {
+        backgroundColor: colours.activeButton,
+    },
+    touchDanger: {
+        backgroundColor: colours.lightDetail,
+    },
+    touchMenu: {
+        padding: 5,
+        width: 140,
+    },
+    touchMenuActive: {
+        backgroundColor: colours.activeButton,
+        padding: 5,
+        width: 140,
+    },
+    touchMinus: {
+        borderTopLeftRadius: 30,
+        borderBottomLeftRadius: 30,
+    },
+    touchPlus: {
+        borderTopRightRadius: 30,
+        borderBottomRightRadius: 30,
+    },
+    touchRow: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        margin: 4,
+    },
+})
+
+/*
+export const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
@@ -165,3 +282,4 @@ export const styles = StyleSheet.create({
         borderBottomRightRadius: 30,
     },
 })
+*/

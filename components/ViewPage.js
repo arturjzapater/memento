@@ -4,7 +4,7 @@ import { Button } from './Button'
 import { styles } from '../styles'
 import { findAndRemoveold } from '../StoreService'
 import { cancelAllNotifs, cancelNotif } from '../NotifService'
-import { getRepeatText, repeatOptions } from '../modules/repeat'
+import { getRepeatText } from '../modules/repeat'
 
 export { ViewPage }
 
@@ -68,13 +68,14 @@ const ViewPage = props => {
     return(
         <View style={styles.container}>
             <FlatList
+                style={{ width: 310 }}
                 data={state.data}
                 renderItem={({ item }) => <Item cancel={() => cancel(item.id)} title={item.title} date={item.date} repeatType={item.repeatType} repeatTime={item.repeatTime} />}
                 keyExtractor={item => `item-${item.id}`}
             />
             <Button
-                textStyle={styles.labelBold}
-                touchStyle={styles.touchDanger}
+                textStyle={{ ...styles.bold, ...styles.label }}
+                touchStyle={{ ...styles.touch, ...styles.touchDanger }}
                 func={cancelAll}
                 text='Cancel All Memos'
             />
@@ -84,8 +85,8 @@ const ViewPage = props => {
 
 const Item = props => (
     <View style={styles.item}>
-        <View style={styles.description}>
-            <Text style={{ ...styles.labelBold, ...styles.itemLabel }}>{props.title}</Text>
+        <View style={styles.itemDesc}>
+            <Text style={{ ...styles.bold, ...styles.label, ...styles.itemLabel }}>{props.title}</Text>
             <Text style={{ ...styles.label, ...styles.itemLabel }}>{props.date}</Text>
             <Text style={{ ...styles.label, ...styles.itemLabel }}>
                 Repeat {props.repeatType == 'time'

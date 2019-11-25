@@ -7,16 +7,16 @@ export { SetPage }
 
 const SetPage = props => (
     <>
-        <View styles={styles.container}>
+        <View style={styles.container}>
             <TextInput
-                style={styles.textInput}
+                style={{ ...styles.label, ...styles.textInput }}
                 onChangeText={props.titleChange}
                 placeholder='Write your title'
                 value={props.notification.title}
                 maxLength={30}
             />
             <TextInput
-                style={styles.textInput}
+                style={{ ...styles.label, ...styles.textInput}}
                 onChangeText={props.textChange}
                 placeholder='Write your text'
                 value={props.notification.text}
@@ -25,9 +25,9 @@ const SetPage = props => (
                 numberOfLines={3}
             />
     
-            <TouchableOpacity style={styles.touchable} onPress={props.repeatFunc}>
+            <TouchableOpacity style={styles.touch} onPress={props.repeatFunc}>
             <Text style={styles.label}>Repeat: </Text>
-            <Text style={styles.labelBold}>{props.notification.repeat.key}</Text>
+            <Text style={{ ...styles.bold, ...styles.label }}>{props.notification.repeat.key}</Text>
             </TouchableOpacity>
     
             {props.notification.repeat.value == 'time' && <RepeatTile 
@@ -38,27 +38,27 @@ const SetPage = props => (
             />}
     
             <Button
-                textStyle={styles.labelBold}
-                touchStyle={styles.touchable}
+                textStyle={{ ...styles.bold, ...styles.label }}
+                touchStyle={styles.touch}
                 func={props.dateFunc}
                 text={props.notification.date}
             />
             <Button
-                textStyle={styles.labelBold}
-                touchStyle={styles.touchable}
+                textStyle={{ ...styles.bold, ...styles.label }}
+                touchStyle={styles.touch}
                 func={props.timeFunc}
                 text={props.notification.time}
             />
     
             <Button
-                textStyle={styles.labelBold}
-                touchStyle={styles.touchableActive}
+                textStyle={{ ...styles.bold, ...styles.label }}
+                touchStyle={{ ...styles.touch, ...styles.touchAction }}
                 func={props.submitHandler}
                 text='Set Notification'
             />
             <Button
-                textStyle={styles.labelBold}
-                touchStyle={styles.touchDanger}
+                textStyle={{ ...styles.bold, ...styles.label }}
+                touchStyle={{ ...styles.touch, ...styles.touchDanger }}
                 func={props.reset}
                 text='Reset Fields'
             />
@@ -67,11 +67,11 @@ const SetPage = props => (
 )
 
 const RepeatTile = props => (
-    <View style={styles.row}>
+    <View style={styles.touchRow}>
         <SignButton style={styles.touchMinus} text='-' func={props.decreaseRepeat} />
         <Text style={styles.label}>Every </Text>
         <TextInput
-            style={{ ...styles.labelBold, ...styles.timeInput }}
+            style={{ ...styles.bold, ...styles.label, ...styles.timeInput }}
             onChangeText={props.repeatTimeFunc}
             value={props.repeatTime.toString()}
             keyboardType='numeric'
@@ -82,7 +82,7 @@ const RepeatTile = props => (
 )
 
 const SignButton = props => (
-    <TouchableOpacity style={{ ...styles.touchButton, ...props.style}} onPress={props.func}>
-      <Text style={styles.labelBold}>{props.text}</Text>
+    <TouchableOpacity style={{ ...styles.touch, ...props.style}} onPress={props.func}>
+      <Text style={{ ...styles.bold, ...styles.label }}>{props.text}</Text>
     </TouchableOpacity>
 )
