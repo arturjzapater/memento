@@ -67,14 +67,15 @@ export const styles = StyleSheet.create({
     msgBox: {
         flexDirection: 'row',
         alignItems: 'center',
+        alignSelf: 'stretch',
         justifyContent: 'space-between',
         backgroundColor: colours.lightDetail,
         borderRadius: 20,
-        margin: 4,
+        marginLeft: 15,
+        marginRight: 15,
         padding: 5,
         paddingLeft: 20,
         paddingRight: 15,
-        width: '100%',
     },
     textInput: {
         alignSelf: 'stretch',
