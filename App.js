@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Alert, View } from 'react-native'
+import { Alert, KeyboardAvoidingView, View } from 'react-native'
 import DateTimePicker from '@react-native-community/datetimepicker'
 import { Menu } from './components/Menu'
 import { MessageBox } from './components/MessageBox'
@@ -86,7 +86,7 @@ export default () => {
     }
 
   return(
-    <View style={styles.main}>
+    <KeyboardAvoidingView style={styles.main} behavior='height' enabled>
       {message != '' && <MessageBox text={message} close={() => setMessage('')} />}
       
       {page == 'set' && <SetPage
@@ -109,7 +109,7 @@ export default () => {
 
       {showDatePicker && <DateTimePicker value={new Date(notification.date)} minimumDate={now} onChange={dateHandler} />}
       {showTimePicker && <DateTimePicker mode='time' value={new Date(`${notification.date} ${notification.time}`)} minimumDate={now} minimumDate={now} onChange={timeHandler} />}
-    </View>
+    </KeyboardAvoidingView>
   )
 }
 

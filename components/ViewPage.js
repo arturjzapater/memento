@@ -68,7 +68,7 @@ const ViewPage = props => {
     return(
         <View style={styles.container}>
             <FlatList
-                style={{ width: 310 }}
+                style={{ alignSelf: 'stretch' }}
                 data={state.data}
                 renderItem={({ item }) => <Item cancel={() => cancel(item.id)} title={item.title} date={item.date} repeatType={item.repeatType} repeatTime={item.repeatTime} />}
                 keyExtractor={item => `item-${item.id}`}

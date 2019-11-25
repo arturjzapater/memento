@@ -19,6 +19,10 @@ export const styles = StyleSheet.create({
         justifyContent: 'space-between',
         width: 310,
     },
+    group: {
+        alignSelf: 'stretch',
+        justifyContent: 'center',
+    },
     item: {
         alignItems: 'center',
         alignSelf: 'stretch',
@@ -46,6 +50,7 @@ export const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'space-between',
+        paddingTop: 20,
     },
     menu: {
         flexDirection: 'row',
@@ -112,8 +117,12 @@ export const styles = StyleSheet.create({
     touchMinus: {
         borderTopLeftRadius: 30,
         borderBottomLeftRadius: 30,
+        borderTopRightRadius: 0,
+        borderBottomRightRadius: 0,
     },
     touchPlus: {
+        borderTopLeftRadius: 0,
+        borderBottomLeftRadius: 0,
         borderTopRightRadius: 30,
         borderBottomRightRadius: 30,
     },

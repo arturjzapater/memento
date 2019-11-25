@@ -1,13 +1,13 @@
 import React from 'react'
-import { Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import { Button } from './Button'
 import { styles } from '../styles'
 
 export { SetPage }
 
 const SetPage = props => (
-    <>
-        <View style={styles.container}>
+    <View style={styles.container}>
+        <ScrollView style={{ alignSelf: 'stretch' }}>
             <TextInput
                 style={{ ...styles.label, ...styles.textInput }}
                 onChangeText={props.titleChange}
@@ -24,19 +24,18 @@ const SetPage = props => (
                 multiline={true}
                 numberOfLines={3}
             />
-    
             <TouchableOpacity style={styles.touch} onPress={props.repeatFunc}>
             <Text style={styles.label}>Repeat: </Text>
             <Text style={{ ...styles.bold, ...styles.label }}>{props.notification.repeat.key}</Text>
             </TouchableOpacity>
-    
+
             {props.notification.repeat.value == 'time' && <RepeatTile 
                 repeatTime={props.notification.repeatTime}
                 repeatTimeFunc={props.repeatTimeFunc}
                 decreaseRepeat={props.decreaseRepeat}
                 increaseRepeat={props.increaseRepeat}
             />}
-    
+
             <Button
                 textStyle={{ ...styles.bold, ...styles.label }}
                 touchStyle={styles.touch}
@@ -49,7 +48,8 @@ const SetPage = props => (
                 func={props.timeFunc}
                 text={props.notification.time}
             />
-    
+        </ScrollView>
+        <View style={styles.group}>
             <Button
                 textStyle={{ ...styles.bold, ...styles.label }}
                 touchStyle={{ ...styles.touch, ...styles.touchAction }}
@@ -63,7 +63,7 @@ const SetPage = props => (
                 text='Reset Fields'
             />
         </View>
-    </>
+    </View>
 )
 
 const RepeatTile = props => (
