@@ -12,14 +12,14 @@ const SetPage = props => (
                 style={styles.textInput}
                 onChangeText={props.titleChange}
                 placeholder='Write your title'
-                value={props.title}
+                value={props.notification.title}
                 maxLength={30}
             />
             <TextInput
                 style={styles.textInput}
                 onChangeText={props.textChange}
                 placeholder='Write your text'
-                value={props.text}
+                value={props.notification.text}
                 maxLength={240}
                 multiline={true}
                 numberOfLines={3}
@@ -27,11 +27,11 @@ const SetPage = props => (
     
             <TouchableOpacity style={styles.touchable} onPress={props.repeatFunc}>
             <Text style={styles.label}>Repeat: </Text>
-            <Text style={styles.labelBold}>{props.repeat.key}</Text>
+            <Text style={styles.labelBold}>{props.notification.repeat.key}</Text>
             </TouchableOpacity>
     
-            {props.repeat.value == 'time' && <RepeatTile 
-                repeatTime={props.repeatTime}
+            {props.notification.repeat.value == 'time' && <RepeatTile 
+                repeatTime={props.notification.repeatTime}
                 repeatTimeFunc={props.repeatTimeFunc}
                 decreaseRepeat={props.decreaseRepeat}
                 increaseRepeat={props.increaseRepeat}
@@ -41,13 +41,13 @@ const SetPage = props => (
                 textStyle={styles.labelBold}
                 touchStyle={styles.touchable}
                 func={props.dateFunc}
-                text={props.dateText}
+                text={props.notification.date}
             />
             <Button
                 textStyle={styles.labelBold}
                 touchStyle={styles.touchable}
                 func={props.timeFunc}
-                text={props.timeText}
+                text={props.notification.time}
             />
     
             <Button

@@ -39,7 +39,7 @@ export const styles = StyleSheet.create({
         backgroundColor: colours.darkMain,
         flex: 1,
         alignItems: 'center',
-        justifyContent: 'flex-start',
+        justifyContent: 'space-between',
         padding: 30,
     },
     menu: {

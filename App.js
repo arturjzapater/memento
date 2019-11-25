@@ -9,34 +9,31 @@ import { styles } from './styles'
 import { scheduleNotif } from './NotifService'
 
 export default () => {
-  const [ repeat, setRepeat ] = useState(repeatOptions[0])
-  const [ repeatTime, setRepeatTime ] = useState(48)
-  const [ date, setDate ] = useState(now.toDateString())
-  const [ time, setTime ] = useState(formatTime(now))
+  const [ notification, setNotification ] = useState(setInitialState())
   const [ showDatePicker, setShowDatePicker ] = useState(false)
   const [ showTimePicker, setShowTimePicker ] = useState(false)
-  const [ text, setText ] = useState('')
-  const [ title, setTitle ] = useState('')
   const [ page, setPage ] = useState('set')
   const [ message, setMessage ] = useState('')
 
   const dateHandler = (event, newDate) => {
     setShowDatePicker(false)
-    setDate(newDate ? newDate.toDateString() : date)
+    setNotification({
+      ...notification,
+      date: newDate ? newDate.toDateString() : notification.date,
+    })
   }
 
-  const decreaseRepeat = () => setRepeatTime(repeatTime - 1)
+  const decreaseRepeat = () => setNotification({
+    ...notification,
+    repeatTime: notification.repeatTime - 1
+  })
 
-  const increaseRepeat = () => setRepeatTime(repeatTime + 1)
+  const increaseRepeat = () => setNotification({
+    ...notification,
+    repeatTime: notification.repeatTime + 1
+  })
 
-  const resetFields = () => {
-    const now = new Date()
-    setRepeat(repeatOptions[0])
-    setTitle('')
-    setText('')
-    setDate(now.toDateString())
-    setTime(formatTime(now))
-  }
+  const resetFields = () => setNotification(setInitialState())
 
   const showSet = () => {
     setPage('set')
@@ -49,41 +46,47 @@ export default () => {
   }
 
   const submitHandler = () => {
-    scheduleNotif(title, text, `${date} ${time}`, repeat.value, repeatTime)
-    setMessage(`I will remind you about ${title}!`)
-    setRepeat(repeatOptions[0])
-    setText('')
-    setTitle('')
+    scheduleNotif(notification.title, notification.text, `${notification.date} ${notification.time}`, notification.repeat.value, notification.repeatTime)
+    setMessage(`I will remind you about ${notification.title}!`)
+    setNotification({
+      ...notification,
+      title: '',
+      text: '',
+      repeat: repeatOptions[0]
+    })
   }
 
   const timeHandler = (event, newTime) => {
     setShowTimePicker(false)
-    setTime( newTime ? formatTime(newTime) : time)
+    setNotification({
+      ...notification,
+      time: newTime ? formatTime(newTime) : notification.time,
+    })
   }
 
-  const toggleRepeat = () => repeat == repeatOptions[repeatOptions.length - 1]
-    ? setRepeat(repeatOptions[0])
-    : setRepeat(repeatOptions[repeatOptions.findIndex(x => x == repeat) + 1])
+  const toggleRepeat = () => notification.repeat == repeatOptions[repeatOptions.length - 1]
+    ? setNotification({
+      ...notification,
+      repeat: repeatOptions[0],
+    })
+    : setNotification({
+      ...notification,
+      repeat: repeatOptions[repeatOptions.findIndex(x => x == notification.repeat) + 1],
+    })
 
   return(
     <View style={styles.main}>
-      <Text style={styles.title}>Memento</Text>
       {message != '' && <MessageBox text={message} close={() => setMessage('')} />}
-      <Menu active={page} set={showSet} view={showView} />
+      
       {page == 'set' && <SetPage
-        title={title}
-        titleChange={newText => setTitle(newText)}
-        text={text}
-        textChange={newText => setText(newText)}
-        repeat={repeat}
+        notification={notification}
+        titleChange={newText => setNotification({ ...notification, title: newText })}
+        textChange={newText => setNotification({ ...notification, text: newText })}
         repeatFunc={toggleRepeat}
-        repeatTime={repeatTime}
-        repeatTimeFunc={newTime => setRepeatTime(+newTime)}
+        repeatTimeFunc={newTime => setNotification({ ...notification, repeatTime: +newTime })}
         decreaseRepeat={decreaseRepeat}
         increaseRepeat={increaseRepeat}
-        dateText={date}
         dateFunc={() => setShowDatePicker(true)}
-        timeText={time}
         timeFunc={() => setShowTimePicker(true)}
         submitHandler={submitHandler}
         reset={resetFields}
@@ -91,8 +94,10 @@ export default () => {
 
       {page == 'view' && <ViewPage />}
 
-      {showDatePicker && <DateTimePicker value={new Date(date)} minimumDate={now} onChange={dateHandler} />}
-      {showTimePicker && <DateTimePicker mode='time' value={new Date(`${date} ${time}`)} minimumDate={now} minimumDate={now} onChange={timeHandler} />}
+      <Menu active={page} set={showSet} view={showView} />
+
+      {showDatePicker && <DateTimePicker value={new Date(notification.date)} minimumDate={now} onChange={dateHandler} />}
+      {showTimePicker && <DateTimePicker mode='time' value={new Date(`${notification.date} ${notification.time}`)} minimumDate={now} minimumDate={now} onChange={timeHandler} />}
     </View>
   )
 }
@@ -100,6 +105,18 @@ export default () => {
 const formatMinutes = minutes => minutes.toString().length == 1 ? `0${minutes}` : minutes
 
 const formatTime = time => `${time.getHours()}:${formatMinutes(time.getMinutes())}`
+
+const setInitialState = () => {
+  const now = new Date()
+  return {
+    title: '',
+    text: '',
+    repeat: repeatOptions[0],
+    repeatTime: 48,
+    date: now.toDateString(),
+    time: formatTime(now),
+  }
+}
 
 const now = new Date()
 
