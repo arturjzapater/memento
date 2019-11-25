@@ -87,6 +87,8 @@ export default () => {
 
   return(
     <KeyboardAvoidingView style={styles.main} behavior='height' enabled>
+      <Menu active={page} set={showSet} view={showView} />
+
       {message != '' && <MessageBox text={message} close={() => setMessage('')} />}
       
       {page == 'set' && <SetPage
@@ -104,8 +106,6 @@ export default () => {
       />}
 
       {page == 'view' && <ViewPage />}
-
-      <Menu active={page} set={showSet} view={showView} />
 
       {showDatePicker && <DateTimePicker value={new Date(notification.date)} minimumDate={now} onChange={dateHandler} />}
       {showTimePicker && <DateTimePicker mode='time' value={new Date(`${notification.date} ${notification.time}`)} minimumDate={now} minimumDate={now} onChange={timeHandler} />}

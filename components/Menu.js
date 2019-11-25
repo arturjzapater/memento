@@ -5,23 +5,18 @@ import { styles } from '../styles'
 
 export { Menu }
 
-const Menu = props => (
-    <View style={styles.menu}>
+const Menu = props => {
+  const [ align, func, label ] = props.active == 'set'
+    ? [ 'flex-end', props.view, 'View Memos' ]
+    : [ 'flex-start', props.set, 'Create New Memo' ]
+  return(
+    <View style={{ ...styles.menu, justifyContent: align }}>
       <Button
         textStyle={styles.label}
-        touchStyle={props.active == 'set'
-          ? { ...styles.touch, ...styles.touchMenuActive }
-          : { ...styles.touch, ...styles.touchMenu }}
-        func={props.set}
-        text='Set Memo'
-      />
-      <Button
-        textStyle={styles.label}
-        touchStyle={props.active == 'view'
-          ? { ...styles.touch, ...styles.touchMenuActive }
-          : { ...styles.touch, ...styles.touchMenu }}
-        func={props.view}
-        text='View Memos'
+        touchStyle={{ ...styles.touch }}
+        func={func}
+        text={label}
       />
     </View>
   )
+}

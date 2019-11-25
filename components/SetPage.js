@@ -68,7 +68,7 @@ const SetPage = props => (
 
 const RepeatTile = props => (
     <View style={styles.touchRow}>
-        <SignButton style={styles.touchMinus} text='-' func={props.decreaseRepeat} />
+        <SignButton style={styles.touchLeft} text='-' func={props.decreaseRepeat} />
         <Text style={styles.label}>Every </Text>
         <TextInput
             style={{ ...styles.bold, ...styles.label, ...styles.timeInput }}
@@ -77,7 +77,7 @@ const RepeatTile = props => (
             keyboardType='numeric'
         />
         <Text style={styles.label}> hours</Text>
-        <SignButton style={styles.touchPlus} text='+' func={props.increaseRepeat} />
+        <SignButton style={styles.touchRight} text='+' func={props.increaseRepeat} />
     </View>
 )
 
