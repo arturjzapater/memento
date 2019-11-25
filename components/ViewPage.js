@@ -61,7 +61,6 @@ const ViewPage = props => {
             },
             {
                 text: 'I\'ve changed my mind',
-                onPress: () => {},
             }
         ]
     )
