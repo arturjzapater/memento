@@ -13,7 +13,7 @@ const SetPage = props => (
                 onChangeText={props.titleChange}
                 placeholder='Write your title'
                 value={props.notification.title}
-                maxLength={30}
+                maxLength={40}
             />
             <TextInput
                 style={{ ...styles.label, ...styles.textInput}}
