@@ -1,5 +1,5 @@
 import React, { useEffect, useReducer } from 'react'
-import { FlatList, Text, TouchableOpacity, View } from 'react-native'
+import { Alert, FlatList, Text, TouchableOpacity, View } from 'react-native'
 import { Button } from './Button'
 import { styles } from '../styles'
 import { findAndRemoveold } from '../StoreService'
@@ -50,8 +50,21 @@ const ViewPage = props => {
     const cancel = id => cancelNotif(id)
             .then(_ => dispatch({ type: 'LOAD' }))
     
-    const cancelAll = () => cancelAllNotifs()
-            .then(_ => dispatch({ type: 'LOAD' }))
+    const cancelAll = () => Alert.alert(
+        'Are you sure?',
+        'This action will cancel every single memo you have scheduled, including snoozed ones. Do you really want to do that?',
+        [
+            {
+                text: 'Yes, proceed',
+                onPress: () => cancelAllNotifs()
+                    .then(_ => dispatch({ type: 'LOAD' })),
+            },
+            {
+                text: 'I\'ve changed my mind',
+                onPress: () => {},
+            }
+        ]
+    )
 
     return(
         <View style={styles.container}>
