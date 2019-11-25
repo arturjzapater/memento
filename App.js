@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Text, View } from 'react-native'
+import { Alert, View } from 'react-native'
 import DateTimePicker from '@react-native-community/datetimepicker'
 import { Menu } from './components/Menu'
 import { MessageBox } from './components/MessageBox'
@@ -46,14 +46,17 @@ export default () => {
   }
 
   const submitHandler = () => {
-    scheduleNotif(notification.title, notification.text, `${notification.date} ${notification.time}`, notification.repeat.value, notification.repeatTime)
-    setMessage(`I will remind you about ${notification.title}!`)
-    setNotification({
-      ...notification,
-      title: '',
-      text: '',
-      repeat: repeatOptions[0]
-    })
+    const error = validateInput()
+    if (error == null) {
+      scheduleNotif(notification.title, notification.text, `${notification.date} ${notification.time}`, notification.repeat.value, notification.repeatTime)
+      setMessage(`I will remind you about ${notification.title}!`)
+      setNotification({
+        ...notification,
+        title: '',
+        text: '',
+        repeat: repeatOptions[0]
+      })
+    } else Alert.alert('Wait a moment!', error.join('\n'))
   }
 
   const timeHandler = (event, newTime) => {
@@ -73,6 +76,13 @@ export default () => {
       ...notification,
       repeat: repeatOptions[repeatOptions.findIndex(x => x == notification.repeat) + 1],
     })
+
+    const validateInput = () => {
+      error = []
+      if (notification.title == '') error.push('You must write a title')
+      if (new Date(`${notification.date} ${notification.time}`) < new Date()) error.push('You must set a date in the future')
+      return error.length <= 0 ? null : error
+    }
 
   return(
     <View style={styles.main}>

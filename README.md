@@ -9,6 +9,6 @@
   - [x] Allow to cancel memo from view panel
   - [x] Automatically remove old notifications from list
 - [X] Create option to snooze memo on alert
-- [ ] Validate user input
-  - [ ] Especially make sure that a notificaion can't be scheduled for the past
+- [x] Validate user input
+  - [x] Especially make sure that a notificaion can't be scheduled for the past
 - [x] Reset form when memo is set
