@@ -4,6 +4,7 @@ import { Button } from './Button'
 import { styles } from '../styles'
 import { findAndRemoveold } from '../StoreService'
 import { cancelAllNotifs, cancelNotif } from '../NotifService'
+import { getRepeatText, repeatOptions } from '../modules/repeat'
 
 export { ViewPage }
 
@@ -85,13 +86,3 @@ const Item = props => (
         </TouchableOpacity>
     </View>
 )
-
-const getRepeatText = value => repeatOptions.find(x => x.value == value).key
-
-const repeatOptions = [
-    { key: 'Never', value: undefined },
-    { key: 'Monthly', value: 'month' },
-    { key: 'Weekly', value: 'week' },
-    { key: 'Daily', value: 'day' },
-    { key: 'Custom', value: 'time' },
-]

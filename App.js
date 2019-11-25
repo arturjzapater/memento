@@ -7,6 +7,7 @@ import { SetPage } from './components/SetPage'
 import { ViewPage } from './components/ViewPage'
 import { styles } from './styles'
 import { scheduleNotif } from './NotifService'
+import { repeatOptions } from './modules/repeat'
 
 export default () => {
   const [ notification, setNotification ] = useState(setInitialState())
@@ -129,11 +130,3 @@ const setInitialState = () => {
 }
 
 const now = new Date()
-
-const repeatOptions = [
-  { key: 'Never', value: undefined },
-  { key: 'Monthly', value: 'month' },
-  { key: 'Weekly', value: 'week' },
-  { key: 'Daily', value: 'day' },
-  { key: 'Custom', value: 'time' },
-]
