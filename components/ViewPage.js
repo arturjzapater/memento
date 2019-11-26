@@ -1,5 +1,5 @@
 import React, { useEffect, useReducer } from 'react'
-import { Alert, FlatList, Text, TouchableOpacity, View } from 'react-native'
+import { Alert, FlatList, Image, Text, TouchableOpacity, View } from 'react-native'
 import { Button } from './Button'
 import { FadeInView } from './FadeInView'
 import { styles } from '../styles'
@@ -96,7 +96,8 @@ const Item = props => (
             </Text>
         </View>
         <TouchableOpacity onPress={props.cancel}>
-            <Text style={{ fontSize: 30 }}>D</Text>
+            <Image style={{ width: 30, height: 30 }} source={require('./rubbish-bin.png')} /> 
+            {/* from https://icons8.com */}
         </TouchableOpacity>
     </View>
 )
