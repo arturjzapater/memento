@@ -1,12 +1,13 @@
 import React from 'react'
 import { ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import { Button } from './Button'
+import { FadeInView } from './FadeInView'
 import { styles } from '../styles'
 
 export { SetPage }
 
 const SetPage = props => (
-    <View style={styles.container}>
+    <FadeInView style={styles.container}>
         <ScrollView style={{ alignSelf: 'stretch' }}>
             <TextInput
                 style={{ ...styles.label, ...styles.textInput }}
@@ -63,7 +64,7 @@ const SetPage = props => (
                 text='Reset Fields'
             />
         </View>
-    </View>
+    </FadeInView>
 )
 
 const RepeatTile = props => (

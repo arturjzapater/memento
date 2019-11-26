@@ -1,6 +1,7 @@
 import React, { useEffect, useReducer } from 'react'
 import { Alert, FlatList, Text, TouchableOpacity, View } from 'react-native'
 import { Button } from './Button'
+import { FadeInView } from './FadeInView'
 import { styles } from '../styles'
 import { findAndRemoveold } from '../StoreService'
 import { cancelAllNotifs, cancelNotif } from '../NotifService'
@@ -66,7 +67,7 @@ const ViewPage = props => {
     )
 
     return(
-        <View style={styles.container}>
+        <FadeInView style={styles.container}>
             <FlatList
                 style={{ alignSelf: 'stretch' }}
                 data={state.data}
@@ -79,7 +80,7 @@ const ViewPage = props => {
                 func={cancelAll}
                 text='Cancel All Memos'
             />
-        </View>
+        </FadeInView>
     )
 }
 
