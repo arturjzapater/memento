@@ -96,8 +96,7 @@ const Item = props => (
             </Text>
         </View>
         <TouchableOpacity onPress={props.cancel}>
-            <Image style={{ width: 30, height: 30 }} source={require('./rubbish-bin.png')} /> 
-            {/* from https://icons8.com */}
+            <Image style={{ width: 40, height: 40 }} source={require('../icons/bin.png')} />
         </TouchableOpacity>
     </View>
 )

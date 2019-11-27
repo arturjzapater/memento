@@ -54,7 +54,7 @@ export const styles = StyleSheet.create({
     },
     menu: {
         flexDirection: 'row',
-        alignItems: 'center',
+        alignItems: 'flex-end',
         alignSelf: 'stretch',
         backgroundColor: colours.darkDetail,
         elevation: 10,
@@ -100,7 +100,7 @@ export const styles = StyleSheet.create({
         backgroundColor: colours.darkDetail,
         borderRadius: 30,
         margin: 4,
-        padding: 15,
+        padding: 10,
     },
     touchAction: {
         backgroundColor: colours.activeButton,
