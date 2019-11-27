@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Alert, KeyboardAvoidingView, View } from 'react-native'
+import { Alert, KeyboardAvoidingView, StatusBar } from 'react-native'
 import DateTimePicker from '@react-native-community/datetimepicker'
 import { Menu } from './components/Menu'
 import { MessageBox } from './components/MessageBox'
@@ -87,6 +87,7 @@ export default () => {
 
   return(
     <KeyboardAvoidingView style={styles.main} behavior='height' enabled>
+      <StatusBar hidden={true} />
       <Menu active={page} set={showSet} view={showView} />
 
       {message != '' && <MessageBox text={message} close={() => setMessage('')} />}
