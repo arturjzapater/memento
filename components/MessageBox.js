@@ -8,7 +8,7 @@ const MessageBox = props => (
     <View style={styles.msgBox}>
       <Text style={styles.message}>{props.text}</Text>
       <TouchableOpacity onPress={props.close}>
-      <Image style={{ width: 20, height: 20 }} source={require('../icons/closeB.png')} />
+        <Image style={{ width: 20, height: 20 }} source={require('../icons/close.png')} />
       </TouchableOpacity>
     </View>
   )

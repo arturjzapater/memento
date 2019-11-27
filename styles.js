@@ -2,8 +2,8 @@ import { StyleSheet } from 'react-native'
 
 const colours = {
     activeButton: 'hsl(270, 70%, 60%)',
-    darkMain: 'hsl(270, 44%, 7%)',
-    darkDetail: 'hsl(270, 35%, 12%)',
+    darkMain: 'hsl(270, 44%, 10%)',
+    darkDetail: 'hsl(270, 35%, 20%)',
     lightDetail: 'hsl(30, 75%, 60%)',
     lightEmphasis: 'hsl(24, 65%, 99%)',
     lightMain: 'hsl(320, 15%, 90%)',
@@ -43,7 +43,7 @@ export const styles = StyleSheet.create({
     },
     label: {
         color: colours.lightMain,
-        fontSize: 18,
+        fontSize: 16,
     },
     main: {
         backgroundColor: colours.darkMain,
@@ -59,10 +59,11 @@ export const styles = StyleSheet.create({
         backgroundColor: colours.darkDetail,
         elevation: 10,
         marginBottom: 10,
+        paddingTop: 10,
     },
     message: {
         color: colours.darkDetail,
-        fontSize: 15,
+        fontSize: 14,
     },
     msgBox: {
         flexDirection: 'row',
@@ -71,9 +72,8 @@ export const styles = StyleSheet.create({
         justifyContent: 'space-between',
         backgroundColor: colours.lightDetail,
         borderRadius: 20,
-        marginLeft: 15,
-        marginRight: 15,
-        padding: 5,
+        marginHorizontal: 15,
+        paddingVertical: 2,
         paddingLeft: 20,
         paddingRight: 15,
     },
@@ -82,15 +82,13 @@ export const styles = StyleSheet.create({
         backgroundColor: colours.darkDetail,
         borderRadius: 20,
         margin: 4,
-        padding: 15,
-        paddingLeft: 30,
-        paddingRight: 30,
+        paddingVertical: 15,
+        paddingHorizontal: 30,
     },
     timeInput: {
         backgroundColor: colours.darkDetail,
-        padding: 15,
-        paddingLeft: 30,
-        paddingRight: 30,
+        paddingVertical: 15,
+        paddingHorizontal: 30,
     },
     touch: {
         alignItems: 'center',
@@ -107,15 +105,6 @@ export const styles = StyleSheet.create({
     },
     touchDanger: {
         backgroundColor: colours.lightDetail,
-    },
-    touchMenu: {
-        padding: 5,
-        width: 140,
-    },
-    touchMenuActive: {
-        backgroundColor: colours.activeButton,
-        padding: 5,
-        width: 140,
     },
     touchLeft: {
         borderTopRightRadius: 0,
