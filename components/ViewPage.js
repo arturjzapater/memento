@@ -48,8 +48,9 @@ const ViewPage = props => {
             .catch(err => dispatch({ type: 'REJECT', err }))
     }, [state.status])
 
-    const cancel = id => cancelNotif(id)
+    const cancel = (id, title) => cancelNotif(id)
             .then(_ => dispatch({ type: 'LOAD' }))
+            .then(_ => props.setMessage(`${title} succesfully deleted.`))
     
     const cancelAll = () => Alert.alert(
         'Are you sure?',
@@ -71,7 +72,7 @@ const ViewPage = props => {
             <FlatList
                 style={{ alignSelf: 'stretch' }}
                 data={state.data}
-                renderItem={({ item }) => <Item cancel={() => cancel(item.id)} title={item.title} date={item.date} repeatType={item.repeatType} repeatTime={item.repeatTime} />}
+                renderItem={({ item }) => <Item cancel={() => cancel(item.id, item.title)} title={item.title} date={item.date} repeatType={item.repeatType} repeatTime={item.repeatTime} />}
                 keyExtractor={item => `item-${item.id}`}
             />
             <Button
