@@ -51,11 +51,9 @@ const pushNotif = (id, title, text, date, repeatType, repeatTime) =>
   PushNotification.localNotificationSchedule({
     date: new Date(date),
     id: id.toString(),
-    ticker: "Memento Notification Ticker",
+    ticker: 'Memento Notification Ticker',
     autoCancel: true,
-    largeIcon: "ic_launcher",
-    smallIcon: "ic_notification",
-    subText: "Remember, remember!",
+    subText: 'Remember, remember!',
     vibrate: true,
     vibration: 1000,
     ongoing: false,
