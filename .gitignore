@@ -23,6 +23,7 @@ DerivedData
 
 # Android/IntelliJ
 #
+android/
 build/
 .idea
 .gradle
@@ -60,4 +61,3 @@ buck-out/
 
 .idea/
 ios/
-android/
