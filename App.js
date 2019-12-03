@@ -109,7 +109,7 @@ export default () => {
       {page == 'view' && <ViewPage setMessage={setMessage} />}
 
       {showDatePicker && <DateTimePicker value={new Date(notification.date)} minimumDate={now} onChange={dateHandler} />}
-      {showTimePicker && <DateTimePicker mode='time' value={new Date(`${notification.date} ${notification.time}`)} minimumDate={now} minimumDate={now} onChange={timeHandler} />}
+      {showTimePicker && <DateTimePicker mode='time' value={new Date(`${notification.date} ${notification.time}`)} onChange={timeHandler} />}
     </KeyboardAvoidingView>
   )
 }
