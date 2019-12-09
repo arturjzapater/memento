@@ -35,7 +35,6 @@ export default () => {
 
   const cancel = notification => cancelNotif(notification.id)
     .then(_ => dispatch({ type: 'LOAD', message: `${notification.title} succesfully deleted.`, undo: notification }))
-          //.then(_ => setMessage(`${title} succesfully deleted.`))
   
   const cancelAll = () => Alert.alert(
       'Are you sure?',
@@ -51,8 +50,6 @@ export default () => {
           }
       ]
   )
-
-  //const [ message, setMessage ] = useState('')
 
   const dateHandler = (event, newDate) => {
     setShowDatePicker(false)
@@ -74,7 +71,6 @@ export default () => {
 
   const resetFields = () => setNotification(resetNotification())
 
-  //notification.title, notification.text, `${notification.date} ${notification.time}`, notification.repeat.value, notification.repeatTime
   const submitHandler = () => {
     const error = validateInput()
     if (error == null) {
@@ -148,7 +144,6 @@ export default () => {
         cancelOne={cancel}
         list={state.data}
         newMemo={() => dispatch({ type: 'NEW' })}
-        //setMessage={setMessage}
       />}
 
       {showDatePicker && <DateTimePicker value={new Date(notification.date)} minimumDate={now} onChange={dateHandler} />}
