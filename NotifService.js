@@ -32,16 +32,15 @@ export const cancelNotif = id => {
     .catch(console.log)
 }
 
-export const scheduleNotif = (title, text, date, repeatType, repeatTime) => {
-  getLastId()
+export const scheduleNotif = (title, text, date, repeatType, repeatTime) => getLastId()
     .then(id => {
       const newId = id + 1
       const newTime = repeatType == 'time' ? repeatTime * 3600000 : undefined
       pushNotif(newId, title, text, date, repeatType, newTime)
-      update({ id: newId, title, date, repeatType, repeatTime : newTime })
-      return({ id: newId, title, date, repeatType, repeatTime : newTime })
+      return { id: newId, title, date, repeatType, repeatTime : newTime }
+      //return({ id: newId, title, date, repeatType, repeatTime : newTime })
     })
-}
+    .then(data => update(data))
 
 const getLastId = () => find()
   .then(data => data.reduce((a, b) => b.id > a ? b.id : a, 0))
