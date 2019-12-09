@@ -13,7 +13,6 @@ import { repeatOptions } from './modules/repeat'
 
 const initialState = {
   message: '',
-  undo: null,
   page: 'view',
   status: 'loading',
   data: [],
@@ -34,7 +33,7 @@ export default () => {
   }, [state.status])
 
   const cancel = notification => cancelNotif(notification.id)
-    .then(_ => dispatch({ type: 'LOAD', message: `${notification.title} succesfully deleted.`, undo: notification }))
+    .then(_ => dispatch({ type: 'LOAD', message: `${notification.title} succesfully deleted.` }))
   
   const cancelAll = () => Alert.alert(
       'Are you sure?',
@@ -102,9 +101,6 @@ export default () => {
       repeat: repeatOptions[repeatOptions.findIndex(x => x == notification.repeat) + 1],
     })
 
-  const undo = notification => scheduleNotif(notification)
-    .then(() => dispatch({ type: 'LOAD', message: `${notification.title} is back!`, undo: null }))
-
   const validateInput = () => {
     error = []
     if (notification.title == '') error.push('You must write a title')
@@ -119,8 +115,6 @@ export default () => {
 
       {state.message != '' && <MessageBox
         text={state.message}
-        deletedNotif={state.undo}
-        undo={() => undo(state.undo)}
         close={() => dispatch({ type: 'LOAD' })}
       />}
       
