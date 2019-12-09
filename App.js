@@ -13,7 +13,7 @@ export default () => {
   const [ notification, setNotification ] = useState(setInitialState())
   const [ showDatePicker, setShowDatePicker ] = useState(false)
   const [ showTimePicker, setShowTimePicker ] = useState(false)
-  const [ page, setPage ] = useState('set')
+  const [ page, setPage ] = useState('view')
   const [ message, setMessage ] = useState('')
 
   const dateHandler = (event, newDate) => {
