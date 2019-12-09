@@ -79,6 +79,20 @@ export const styles = StyleSheet.create({
         paddingLeft: 20,
         paddingRight: 15,
     },
+    roundButton: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 30,
+        elevation: 10,
+        height: 60,
+        width: 60,
+        position: 'absolute',
+        right: -20,
+        bottom: 40,
+    },
+    roundBtnText: {
+        fontSize: 50,
+    },
     textInput: {
         alignSelf: 'stretch',
         backgroundColor: colours.darkDetail,

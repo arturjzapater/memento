@@ -76,6 +76,12 @@ const ViewPage = props => {
                 keyExtractor={item => `item-${item.id}`}
             />
             <Button
+                textStyle={{ ...styles.bold, ...styles.label, ...styles.roundBtnText }}
+                touchStyle={{ ...styles.roundButton, ...styles.touchAction }}
+                func={props.newMemo}
+                text='+'
+            />
+            <Button
                 textStyle={{ ...styles.bold, ...styles.label }}
                 touchStyle={{ ...styles.touch, ...styles.touchDanger }}
                 func={cancelAll}

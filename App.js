@@ -106,7 +106,10 @@ export default () => {
         reset={resetFields}
       />}
 
-      {page == 'view' && <ViewPage setMessage={setMessage} />}
+      {page == 'view' && <ViewPage
+        newMemo={showSet}
+        setMessage={setMessage}
+      />}
 
       {showDatePicker && <DateTimePicker value={new Date(notification.date)} minimumDate={now} onChange={dateHandler} />}
       {showTimePicker && <DateTimePicker mode='time' value={new Date(`${notification.date} ${notification.time}`)} onChange={timeHandler} />}
