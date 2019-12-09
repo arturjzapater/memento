@@ -4,9 +4,10 @@ const colours = {
     activeButton: 'hsl(270, 70%, 60%)',
     darkMain: 'hsl(270, 44%, 10%)',
     darkDetail: 'hsl(270, 35%, 20%)',
-    lightDetail: 'hsl(30, 75%, 60%)',
     lightEmphasis: 'hsl(24, 65%, 99%)',
     lightMain: 'hsl(320, 15%, 90%)',
+    submit: 'hsl(30, 75%, 60%)',
+    danger: 'hsl(338, 85%, 60%)',
 }
 
 export const styles = StyleSheet.create({
@@ -71,7 +72,7 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
         alignSelf: 'stretch',
         justifyContent: 'space-between',
-        backgroundColor: colours.lightDetail,
+        backgroundColor: colours.submit,
         borderRadius: 20,
         marginHorizontal: 15,
         paddingVertical: 2,
@@ -102,10 +103,10 @@ export const styles = StyleSheet.create({
         padding: 10,
     },
     touchAction: {
-        backgroundColor: colours.activeButton,
+        backgroundColor: colours.submit,
     },
     touchDanger: {
-        backgroundColor: colours.lightDetail,
+        backgroundColor: colours.danger,
     },
     touchLeft: {
         borderTopRightRadius: 0,
