@@ -31,20 +31,26 @@ export const cancelNotif = id => {
   return remove(id)
     .catch(console.log)
 }
-
-export const scheduleNotif = (title, text, date, repeatType, repeatTime) => getLastId()
-    .then(id => {
-      const newId = id + 1
-      const newTime = repeatType == 'time' ? repeatTime * 3600000 : undefined
-      pushNotif(newId, title, text, date, repeatType, newTime)
-      return({ id: newId, title, date, repeatType, repeatTime : newTime })
+//title, text, date, repeatType, repeatTime
+//newId, title, text, date, repeatType, newTime
+export const scheduleNotif = (info) => getLastId()
+    .then(lastId => {
+      const notification = {
+        ...info,
+        id: lastId + 1,
+        repeatTime: info.repeatType == 'time' ? info.repeatTime * 3600000 : undefined
+      }
+      //const newId = id + 1
+      //const newTime = repeatType == 'time' ? repeatTime * 3600000 : undefined
+      pushNotif(notification)
+      return(notification)
     })
     .then(data => update(data))
 
 const getLastId = () => find()
   .then(data => data.reduce((a, b) => b.id > a ? b.id : a, 0))
 
-const pushNotif = (id, title, text, date, repeatType, repeatTime) =>
+const pushNotif = ({ id, title, text, date, repeatType, repeatTime }) =>
   PushNotification.localNotificationSchedule({
     date: new Date(date),
     id: id.toString(),
@@ -53,7 +59,7 @@ const pushNotif = (id, title, text, date, repeatType, repeatTime) =>
     subText: 'Remember, remember!',
     vibrate: true,
     vibration: 1000,
-    ongoing: false,
+    ongoing: true,
     title: title,
     message: text,
     playSound: true,

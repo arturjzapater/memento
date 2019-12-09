@@ -7,6 +7,7 @@ const actions = {
     LOAD: (state, action) => ({
         ...state,
         message: action.message || '',
+        undo: action.undo || null,
         status: 'loading',
     }),
     NEW: (state, action) => ({

@@ -13,6 +13,7 @@ import { repeatOptions } from './modules/repeat'
 
 const initialState = {
   message: '',
+  undo: null,
   page: 'view',
   status: 'loading',
   data: [],
@@ -32,8 +33,8 @@ export default () => {
           .catch(err => dispatch({ type: 'REJECT', err }))
   }, [state.status])
 
-  const cancel = (id, title) => cancelNotif(id)
-    .then(_ => dispatch({ type: 'LOAD', message: `${title} succesfully deleted.` }))
+  const cancel = notification => cancelNotif(notification.id)
+    .then(_ => dispatch({ type: 'LOAD', message: `${notification.title} succesfully deleted.`, undo: notification }))
           //.then(_ => setMessage(`${title} succesfully deleted.`))
   
   const cancelAll = () => Alert.alert(
@@ -73,10 +74,15 @@ export default () => {
 
   const resetFields = () => setNotification(resetNotification())
 
+  //notification.title, notification.text, `${notification.date} ${notification.time}`, notification.repeat.value, notification.repeatTime
   const submitHandler = () => {
     const error = validateInput()
     if (error == null) {
-      scheduleNotif(notification.title, notification.text, `${notification.date} ${notification.time}`, notification.repeat.value, notification.repeatTime)
+      scheduleNotif({
+          ...notification,
+          date: `${notification.date} ${notification.time}`,
+          repeatType: notification.repeat.value,
+        })
         .then(() => dispatch({ type: 'LOAD', message: `I will remind you about ${notification.title}!`}))
         .then(resetFields)
     } else Alert.alert('Wait a moment!', error.join('\n'))
@@ -100,19 +106,27 @@ export default () => {
       repeat: repeatOptions[repeatOptions.findIndex(x => x == notification.repeat) + 1],
     })
 
-    const validateInput = () => {
-      error = []
-      if (notification.title == '') error.push('You must write a title')
-      if (new Date(`${notification.date} ${notification.time}`) < new Date()) error.push('You must set a date in the future')
-      return error.length <= 0 ? null : error
-    }
+  const undo = notification => scheduleNotif(notification)
+    .then(() => dispatch({ type: 'LOAD', message: `${notification.title} is back!`, undo: null }))
+
+  const validateInput = () => {
+    error = []
+    if (notification.title == '') error.push('You must write a title')
+    if (new Date(`${notification.date} ${notification.time}`) < new Date()) error.push('You must set a date in the future')
+    return error.length <= 0 ? null : error
+  }
 
   return(
     <KeyboardAvoidingView style={styles.main} behavior='height' enabled>
       <StatusBar hidden={true} />
       <Menu active={state.page} set={() => dispatch({ type: 'NEW' })} view={() => dispatch({ type: 'LOAD' })} />
 
-      {state.message != '' && <MessageBox text={state.message} close={() => dispatch({ type: 'LOAD' })} />}
+      {state.message != '' && <MessageBox
+        text={state.message}
+        deletedNotif={state.undo}
+        undo={() => undo(state.undo)}
+        close={() => dispatch({ type: 'LOAD' })}
+      />}
       
       {state.page == 'set' && <SetPage
         notification={notification}

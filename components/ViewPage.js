@@ -12,7 +12,7 @@ const ViewPage = props => (
         <FlatList
             style={{ alignSelf: 'stretch' }}
             data={props.list}
-            renderItem={({ item }) => <Item cancel={() => props.cancelOne(item.id, item.title)} title={item.title} date={item.date} repeatType={item.repeatType} repeatTime={item.repeatTime} />}
+            renderItem={({ item }) => <Item cancel={() => props.cancelOne(item)} title={item.title} date={item.date} repeatType={item.repeatType} repeatTime={item.repeatTime} />}
             keyExtractor={item => `item-${item.id}`}
         />
         <Button
