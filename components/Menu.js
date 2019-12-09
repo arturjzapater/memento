@@ -10,14 +10,18 @@ const Menu = props => {
     ? [ 'space-between', props.view, 'View Memos' ]
     : [ 'flex-start', props.set, 'Create New Memo' ]
   return(
-    <View style={{ ...styles.menu, justifyContent: align }}>
-      <Image style={{ ...styles.touch, ...styles.logo }} source={require('../icons/app.png')} />
-      <Button
-        textStyle={styles.label}
-        touchStyle={{ ...styles.touch }}
-        func={func}
-        text={label}
-      />
-    </View>
+    <>
+      <View style={{ ...styles.menu }}>
+        <Button
+          textStyle={styles.label}
+          touchStyle={{ ...styles.touch, marginBottom: 0, paddingBottom: 3 }}
+          func={func}
+          text={label}
+        />
+      </View>
+      <View style={{ ...styles.logo }}>
+        <Image source={require('../icons/app.png')} />
+      </View>
+    </>
   )
 }
