@@ -7,39 +7,12 @@ import { SetPage } from './components/SetPage'
 import { ViewPage } from './components/ViewPage'
 import { styles } from './styles'
 import { cancelAllNotifs, cancelNotif, scheduleNotif } from './NotifService'
+import reducer from './StateService'
 import { findAndRemoveold } from './StoreService'
 import { repeatOptions } from './modules/repeat'
 
-const actions = {
-  LOAD: (state, action) => ({
-      ...state,
-      status: 'loading',
-  }),
-  NEW: (state, action) => ({
-    ...state,
-    page: 'set',
-    status: 'new',
-  }),
-  RESOLVE: (state, action) => ({
-      ...state,
-      page: 'view',
-      status: 'success',
-      data: action.data,
-  }),
-  REJECT: (state, action) => ({
-      ...state,
-      status: 'failure',
-      error: action.error,
-  }),
-  default: state => state,
-}
-
-const reducer = (state, action) => {
-  const handler = actions[action.type] || actions.default
-  return handler(state, action)
-}
-
 const initialState = {
+  message: '',
   page: 'view',
   status: 'loading',
   data: [],
@@ -57,8 +30,8 @@ export default () => {
   }, [state.status])
 
   const cancel = (id, title) => cancelNotif(id)
-          .then(_ => dispatch({ type: 'LOAD' }))
-          .then(_ => setMessage(`${title} succesfully deleted.`))
+          .then(_ => dispatch({ type: 'LOAD', message: `${title} succesfully deleted.` }))
+          //.then(_ => setMessage(`${title} succesfully deleted.`))
   
   const cancelAll = () => Alert.alert(
       'Are you sure?',
@@ -67,7 +40,7 @@ export default () => {
           {
               text: 'Yes, proceed',
               onPress: () => cancelAllNotifs()
-                  .then(_ => dispatch({ type: 'LOAD' })),
+                  .then(_ => dispatch({ type: 'LOAD', message: 'Deleted all memos.' })),
           },
           {
               text: 'I\'ve changed my mind',
@@ -78,7 +51,7 @@ export default () => {
   const [ notification, setNotification ] = useState(setInitialState())
   const [ showDatePicker, setShowDatePicker ] = useState(false)
   const [ showTimePicker, setShowTimePicker ] = useState(false)
-  const [ message, setMessage ] = useState('')
+  //const [ message, setMessage ] = useState('')
 
   const dateHandler = (event, newDate) => {
     setShowDatePicker(false)
@@ -104,14 +77,8 @@ export default () => {
     const error = validateInput()
     if (error == null) {
       scheduleNotif(notification.title, notification.text, `${notification.date} ${notification.time}`, notification.repeat.value, notification.repeatTime)
-      setMessage(`I will remind you about ${notification.title}!`)
-      setNotification({
-          ...notification,
-          title: '',
-          text: '',
-          repeat: repeatOptions[0]
-        })
-      dispatch({ type: 'LOAD' })
+        .then(() => dispatch({ type: 'LOAD', message: `I will remind you about ${notification.title}!`}))
+        .then(() => setNotification(setInitialState()))
     } else Alert.alert('Wait a moment!', error.join('\n'))
   }
 
@@ -145,7 +112,7 @@ export default () => {
       <StatusBar hidden={true} />
       <Menu active={state.page} set={() => dispatch({ type: 'NEW' })} view={() => dispatch({ type: 'LOAD' })} />
 
-      {message != '' && <MessageBox text={message} close={() => setMessage('')} />}
+      {state.message != '' && <MessageBox text={state.message} close={() => dispatch({ type: 'LOAD' })} />}
       
       {state.page == 'set' && <SetPage
         notification={notification}
@@ -166,7 +133,7 @@ export default () => {
         cancelOne={cancel}
         list={state.data}
         newMemo={() => dispatch({ type: 'NEW' })}
-        setMessage={setMessage}
+        //setMessage={setMessage}
       />}
 
       {showDatePicker && <DateTimePicker value={new Date(notification.date)} minimumDate={now} onChange={dateHandler} />}
