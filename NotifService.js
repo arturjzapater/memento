@@ -37,8 +37,7 @@ export const scheduleNotif = (title, text, date, repeatType, repeatTime) => getL
       const newId = id + 1
       const newTime = repeatType == 'time' ? repeatTime * 3600000 : undefined
       pushNotif(newId, title, text, date, repeatType, newTime)
-      return { id: newId, title, date, repeatType, repeatTime : newTime }
-      //return({ id: newId, title, date, repeatType, repeatTime : newTime })
+      return({ id: newId, title, date, repeatType, repeatTime : newTime })
     })
     .then(data => update(data))
 
