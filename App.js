@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useReducer, useState } from 'react'
 import { Alert, KeyboardAvoidingView, StatusBar } from 'react-native'
 import DateTimePicker from '@react-native-community/datetimepicker'
 import { Menu } from './components/Menu'
@@ -6,14 +6,78 @@ import { MessageBox } from './components/MessageBox'
 import { SetPage } from './components/SetPage'
 import { ViewPage } from './components/ViewPage'
 import { styles } from './styles'
-import { scheduleNotif } from './NotifService'
+import { cancelAllNotifs, cancelNotif, scheduleNotif } from './NotifService'
+import { findAndRemoveold } from './StoreService'
 import { repeatOptions } from './modules/repeat'
 
+const actions = {
+  LOAD: (state, action) => ({
+      ...state,
+      status: 'loading',
+  }),
+  NEW: (state, action) => ({
+    ...state,
+    page: 'set',
+    status: 'new',
+  }),
+  RESOLVE: (state, action) => ({
+      ...state,
+      page: 'view',
+      status: 'success',
+      data: action.data,
+  }),
+  REJECT: (state, action) => ({
+      ...state,
+      status: 'failure',
+      error: action.error,
+  }),
+  default: state => state,
+}
+
+const reducer = (state, action) => {
+  const handler = actions[action.type] || actions.default
+  return handler(state, action)
+}
+
+const initialState = {
+  page: 'view',
+  status: 'loading',
+  data: [],
+  error: null,
+}
+
 export default () => {
+  const [ state, dispatch ] = useReducer(reducer, initialState)
+
+  useEffect(() => {
+      if (state.status == 'loading') findAndRemoveold()
+          .then(data => data.sort((a, b) => new Date(a.date) > new Date(b.date)))
+          .then(data => dispatch({ type: 'RESOLVE', data }))
+          .catch(err => dispatch({ type: 'REJECT', err }))
+  }, [state.status])
+
+  const cancel = (id, title) => cancelNotif(id)
+          .then(_ => dispatch({ type: 'LOAD' }))
+          .then(_ => setMessage(`${title} succesfully deleted.`))
+  
+  const cancelAll = () => Alert.alert(
+      'Are you sure?',
+      'This action will cancel every single memo you have scheduled, including snoozed ones. Do you really want to do that?',
+      [
+          {
+              text: 'Yes, proceed',
+              onPress: () => cancelAllNotifs()
+                  .then(_ => dispatch({ type: 'LOAD' })),
+          },
+          {
+              text: 'I\'ve changed my mind',
+          }
+      ]
+  )
+
   const [ notification, setNotification ] = useState(setInitialState())
   const [ showDatePicker, setShowDatePicker ] = useState(false)
   const [ showTimePicker, setShowTimePicker ] = useState(false)
-  const [ page, setPage ] = useState('view')
   const [ message, setMessage ] = useState('')
 
   const dateHandler = (event, newDate) => {
@@ -36,27 +100,18 @@ export default () => {
 
   const resetFields = () => setNotification(setInitialState())
 
-  const showSet = () => {
-    setPage('set')
-    setMessage('')
-  }
-
-  const showView = () => {
-    setPage('view')
-    setMessage('')
-  }
-
   const submitHandler = () => {
     const error = validateInput()
     if (error == null) {
       scheduleNotif(notification.title, notification.text, `${notification.date} ${notification.time}`, notification.repeat.value, notification.repeatTime)
       setMessage(`I will remind you about ${notification.title}!`)
       setNotification({
-        ...notification,
-        title: '',
-        text: '',
-        repeat: repeatOptions[0]
-      })
+          ...notification,
+          title: '',
+          text: '',
+          repeat: repeatOptions[0]
+        })
+      dispatch({ type: 'LOAD' })
     } else Alert.alert('Wait a moment!', error.join('\n'))
   }
 
@@ -88,11 +143,11 @@ export default () => {
   return(
     <KeyboardAvoidingView style={styles.main} behavior='height' enabled>
       <StatusBar hidden={true} />
-      <Menu active={page} set={showSet} view={showView} />
+      <Menu active={state.page} set={() => dispatch({ type: 'NEW' })} view={() => dispatch({ type: 'LOAD' })} />
 
       {message != '' && <MessageBox text={message} close={() => setMessage('')} />}
       
-      {page == 'set' && <SetPage
+      {state.page == 'set' && <SetPage
         notification={notification}
         titleChange={newText => setNotification({ ...notification, title: newText })}
         textChange={newText => setNotification({ ...notification, text: newText })}
@@ -106,8 +161,11 @@ export default () => {
         reset={resetFields}
       />}
 
-      {page == 'view' && <ViewPage
-        newMemo={showSet}
+      {state.page == 'view' && <ViewPage
+        cancelAll={cancelAll}
+        cancelOne={cancel}
+        list={state.data}
+        newMemo={() => dispatch({ type: 'NEW' })}
         setMessage={setMessage}
       />}
 

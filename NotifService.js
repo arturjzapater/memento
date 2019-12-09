@@ -41,7 +41,6 @@ export const scheduleNotif = (title, text, date, repeatType, repeatTime) => {
       update({ id: newId, title, date, repeatType, repeatTime : newTime })
       return({ id: newId, title, date, repeatType, repeatTime : newTime })
     })
-    .catch(console.log)
 }
 
 const getLastId = () => find()
