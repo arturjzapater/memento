@@ -56,7 +56,7 @@ export const styles = StyleSheet.create({
         width: 52,
         position: 'absolute',
         left: 15,
-        top: 10,
+        top: 15,
     },
     main: {
         backgroundColor: colours.darkMain,
