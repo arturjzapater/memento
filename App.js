@@ -21,6 +21,9 @@ const initialState = {
 
 export default () => {
   const [ state, dispatch ] = useReducer(reducer, initialState)
+  const [ showDatePicker, setShowDatePicker ] = useState(false)
+  const [ showTimePicker, setShowTimePicker ] = useState(false)
+  const [ notification, setNotification ] = useState(resetNotification())
 
   useEffect(() => {
       if (state.status == 'loading') findAndRemoveold()
@@ -30,7 +33,7 @@ export default () => {
   }, [state.status])
 
   const cancel = (id, title) => cancelNotif(id)
-          .then(_ => dispatch({ type: 'LOAD', message: `${title} succesfully deleted.` }))
+    .then(_ => dispatch({ type: 'LOAD', message: `${title} succesfully deleted.` }))
           //.then(_ => setMessage(`${title} succesfully deleted.`))
   
   const cancelAll = () => Alert.alert(
@@ -48,9 +51,6 @@ export default () => {
       ]
   )
 
-  const [ notification, setNotification ] = useState(setInitialState())
-  const [ showDatePicker, setShowDatePicker ] = useState(false)
-  const [ showTimePicker, setShowTimePicker ] = useState(false)
   //const [ message, setMessage ] = useState('')
 
   const dateHandler = (event, newDate) => {
@@ -71,14 +71,14 @@ export default () => {
     repeatTime: notification.repeatTime + 1
   })
 
-  const resetFields = () => setNotification(setInitialState())
+  const resetFields = () => setNotification(resetNotification())
 
   const submitHandler = () => {
     const error = validateInput()
     if (error == null) {
       scheduleNotif(notification.title, notification.text, `${notification.date} ${notification.time}`, notification.repeat.value, notification.repeatTime)
         .then(() => dispatch({ type: 'LOAD', message: `I will remind you about ${notification.title}!`}))
-        .then(() => setNotification(setInitialState()))
+        .then(resetFields)
     } else Alert.alert('Wait a moment!', error.join('\n'))
   }
 
@@ -126,6 +126,7 @@ export default () => {
         timeFunc={() => setShowTimePicker(true)}
         submitHandler={submitHandler}
         reset={resetFields}
+        cancel={() => dispatch({ type: 'LOAD' })}
       />}
 
       {state.page == 'view' && <ViewPage
@@ -146,7 +147,7 @@ const formatMinutes = minutes => minutes.toString().length == 1 ? `0${minutes}` 
 
 const formatTime = time => `${time.getHours()}:${formatMinutes(time.getMinutes())}`
 
-const setInitialState = () => {
+const resetNotification = () => {
   const now = new Date()
   return {
     title: '',

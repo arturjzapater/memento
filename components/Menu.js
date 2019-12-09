@@ -11,7 +11,7 @@ const Menu = props => {
     : [ 'flex-start', props.set, 'Create New Memo' ]
   return(
     <View style={{ ...styles.menu, justifyContent: align }}>
-      <Image style={{ ...styles.touch, width: 40, height: 40 }} source={require('../icons/app.png')} />
+      <Image style={{ ...styles.touch, ...styles.logo }} source={require('../icons/app.png')} />
       <Button
         textStyle={styles.label}
         touchStyle={{ ...styles.touch }}

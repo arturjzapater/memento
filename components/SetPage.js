@@ -63,6 +63,12 @@ const SetPage = props => (
                 func={props.reset}
                 text='Reset Fields'
             />
+            <Button
+                textStyle={{ ...styles.bold, ...styles.label }}
+                touchStyle={{ ...styles.touch, ...styles.touchDanger }}
+                func={props.cancel}
+                text='Cancel'
+            />
         </View>
     </FadeInView>
 )
