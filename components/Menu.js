@@ -19,7 +19,7 @@ const Menu = props => {
           text={label}
         />
       </View>
-      <View style={{ ...styles.logo }}>
+      <View style={styles.logo}>
         <Image source={require('../icons/app.png')} />
       </View>
     </>
