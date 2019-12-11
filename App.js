@@ -39,6 +39,16 @@ export default () => {
           .catch(err => dispatch({ type: 'REJECT', err }))
   }, [state.status])
 
+  useEffect(() => {
+    if (state.status == 'scheduling') scheduleNotif({
+        ...state.memo,
+        date: `${state.memo.date} ${state.memo.time}`,
+        repeatType: state.memo.repeat.value,
+      })
+      .then(() => dispatch({ type: 'LOAD', message: `I will remind you about ${state.memo.title}!`}))
+      .then(resetFields)
+  }, [state.status])
+
   const cancel = memo => cancelNotif(memo.id)
     .then(_ => dispatch({ type: 'LOAD', message: `${memo.title} succesfully deleted.` }))
   
@@ -71,13 +81,14 @@ export default () => {
   const submitHandler = () => {
     const error = validateInput()
     if (error == null) {
-      scheduleNotif({
+      dispatch({ type: 'SCHEDULE_MEMO' })
+      /*scheduleNotif({
           ...state.memo,
           date: `${state.memo.date} ${state.memo.time}`,
           repeatType: state.memo.repeat.value,
         })
         .then(() => dispatch({ type: 'LOAD', message: `I will remind you about ${state.memo.title}!`}))
-        .then(resetFields)
+        .then(resetFields)*/
     } else Alert.alert('Wait a moment!', error.join('\n'))
   }
 

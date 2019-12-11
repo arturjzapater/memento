@@ -88,5 +88,9 @@ const actions = {
             time: formatTime(new Date())
         }
     }),
+    SCHEDULE_MEMO: (state, action) => ({
+        ...state,
+        status: 'scheduling',
+    }),
     default: state => state,
 }
