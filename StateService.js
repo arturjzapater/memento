@@ -26,5 +26,53 @@ const actions = {
         status: 'failure',
         error: action.error,
     }),
+    CHANGE_TITLE: (state, action) => ({
+        ...state,
+        memo: {
+            ...state.memo,
+            title: action.title,
+        },
+    }),
+    CHANGE_TEXT: (state, action) => ({
+        ...state,
+        memo: {
+            ...state.memo,
+            text: action.text,
+        },
+    }),
+    CHANGE_REPEAT: (state, action) => ({
+        ...state,
+        memo: {
+            ...state.memo,
+            repeat: action.repeat,
+        },
+    }),
+    CHANGE_REPEAT_TIME: (state, action) => ({
+        ...state,
+        memo: {
+            ...state.memo,
+            repeatTime: action.repeatTime,
+        },
+    }),
+    CHANGE_DATE: (state, action) => ({
+        ...state,
+        memo: {
+            ...state.memo,
+            date: action.date,
+        },
+        popup: '',
+    }),
+    CHANGE_TIME: (state, action) => ({
+        ...state,
+        memo: {
+            ...state.memo,
+            time: action.time,
+        },
+        popup: '',
+    }),
+    DISPLAY_POPUP: (state, action) => ({
+        ...state,
+        popup: action.popup,
+    }),
     default: state => state,
 }
