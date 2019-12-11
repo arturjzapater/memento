@@ -58,10 +58,7 @@ export default () => {
   }, [ state.status ])
 
   const cancel = memo => dispatch({ type: 'DELETE_MEMO', toDelete: memo })
-  
-  /*cancelNotif(memo.id)
-    .then(_ => dispatch({ type: 'LOAD', message: `${memo.title} succesfully deleted.` }))*/
-  
+    
   const cancelAll = () => Alert.alert(
       'Are you sure?',
       'This action will cancel every single memo you have scheduled, including snoozed ones. Do you really want to do that?',
@@ -69,8 +66,6 @@ export default () => {
           {
               text: 'Yes, proceed',
               onPress: () => dispatch({ type: 'DELETE_MEMO', toDelete: 'all' })
-              /*cancelAllNotifs()
-                  .then(_ => dispatch({ type: 'LOAD', message: 'Deleted all memos.' })),*/
           },
           {
               text: 'I\'ve changed my mind',
@@ -92,15 +87,6 @@ export default () => {
   const submitHandler = () => {
     const error = validateInput()
     if (error == null) dispatch({ type: 'SCHEDULE_MEMO' })
-      /*{
-        scheduleNotif({
-          ...state.memo,
-          date: `${state.memo.date} ${state.memo.time}`,
-          repeatType: state.memo.repeat.value,
-        })
-        .then(() => dispatch({ type: 'LOAD', message: `I will remind you about ${state.memo.title}!`}))
-        .then(resetFields)
-      }*/
     else Alert.alert('Wait a moment!', error.join('\n'))
   }
 
