@@ -63,7 +63,6 @@ export default () => {
   }, [ state.status ])
 
   useEffect(() => {
-    console.log(state.toDelete)
     if (state.status == 'restoring') restore(state.toDelete)
       .then(() => dispatch({ type: 'LOAD', message: `${state.toDelete.title} is back!`, toDelete: null }))
   })
