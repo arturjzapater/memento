@@ -29,10 +29,8 @@ export const cancelAllNotifs = () => {
 export const cancelNotif = id => {
   PushNotification.cancelLocalNotifications({ id: id.toString() })
   return remove(id)
-    .catch(console.log)
 }
-//title, text, date, repeatType, repeatTime
-//newId, title, text, date, repeatType, newTime
+
 export const scheduleNotif = (info) => getLastId()
     .then(lastId => {
       const notification = {
@@ -40,8 +38,6 @@ export const scheduleNotif = (info) => getLastId()
         id: lastId + 1,
         repeatTime: info.repeatType == 'time' ? info.repeatTime * 3600000 : undefined
       }
-      //const newId = id + 1
-      //const newTime = repeatType == 'time' ? repeatTime * 3600000 : undefined
       pushNotif(notification)
       return(notification)
     })
