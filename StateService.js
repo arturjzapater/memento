@@ -1,3 +1,6 @@
+import { repeatOptions } from './modules/repeat'
+import { formatTime } from './modules/time'
+
 export default (state, action) => {
     const handler = actions[action.type] || actions.default
     return handler(state, action)
@@ -73,6 +76,17 @@ const actions = {
     DISPLAY_POPUP: (state, action) => ({
         ...state,
         popup: action.popup,
+    }),
+    RESET_MEMO: (state, action) => ({
+        ...state,
+        memo: {
+            title: '',
+            text: '',
+            repeat: repeatOptions[0],
+            repeatTime: 48,
+            date: new Date().toDateString(),
+            time: formatTime(new Date())
+        }
     }),
     default: state => state,
 }

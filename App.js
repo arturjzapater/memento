@@ -10,7 +10,7 @@ import { cancelAllNotifs, cancelNotif, scheduleNotif } from './NotifService'
 import reducer from './StateService'
 import { findAndRemoveold } from './StoreService'
 import { repeatOptions } from './modules/repeat'
-import { formatMinutes, formatTime } from './modules/time'
+import { formatTime } from './modules/time'
 
 //const formatMinutes = minutes => minutes.toString().length == 1 ? `0${minutes}` : minutes
 
