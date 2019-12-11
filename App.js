@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useState } from 'react'
+import React, { useEffect, useReducer } from 'react'
 import { Alert, KeyboardAvoidingView, StatusBar } from 'react-native'
 import DateTimePicker from '@react-native-community/datetimepicker'
 import { Menu } from './components/Menu'
@@ -11,10 +11,6 @@ import reducer from './StateService'
 import { findAndRemoveold } from './StoreService'
 import { repeatOptions } from './modules/repeat'
 import { formatTime } from './modules/time'
-
-//const formatMinutes = minutes => minutes.toString().length == 1 ? `0${minutes}` : minutes
-
-//const formatTime = time => `${time.getHours()}:${formatMinutes(time.getMinutes())}`
 
 const initialState = {
   status: 'loading',
@@ -35,9 +31,6 @@ const initialState = {
 
 export default () => {
   const [ state, dispatch ] = useReducer(reducer, initialState)
-  const [ showDatePicker, setShowDatePicker ] = useState(false)
-  const [ showTimePicker, setShowTimePicker ] = useState(false)
-  const [ notification, setNotification ] = useState(resetNotification())
 
   useEffect(() => {
       if (state.status == 'loading') findAndRemoveold()
@@ -68,27 +61,12 @@ export default () => {
     type: 'CHANGE_DATE',
     date: newDate ? newDate.toDateString() : state.memo.date
   })
-  /*{
-    setShowDatePicker(false)
-    setNotification({
-      ...notification,
-      date: newDate ? newDate.toDateString() : notification.date,
-    })
-  }*/
 
   const decreaseRepeat = () => dispatch({ type: 'CHANGE_REPEAT_TIME', repeatTime: state.memo.repeatTime - 1 })
-  /*setNotification({
-    ...notification,
-    repeatTime: notification.repeatTime - 1
-  })*/
 
   const increaseRepeat = () => dispatch({ type: 'CHANGE_REPEAT_TIME', repeatTime: state.memo.repeatTime + 1 })
-  /*setNotification({
-    ...notification,
-    repeatTime: notification.repeatTime + 1
-  })*/
 
-  const resetFields = () => setNotification(resetNotification())
+  const resetFields = () => dispatch({ type: 'RESET_MEMO' })
 
   const submitHandler = () => {
     const error = validateInput()
@@ -107,25 +85,10 @@ export default () => {
     type: 'CHANGE_TIME',
     time: newTime ? formatTime(newTime) : state.memo.time
   })
-  /*{
-    setShowTimePicker(false)
-    setNotification({
-      ...notification,
-      time: newTime ? formatTime(newTime) : notification.time,
-    })
-  }*/
 
   const toggleRepeat = () => state.memo.repeat == repeatOptions[repeatOptions.length - 1]
     ? dispatch({ type: 'CHANGE_REPEAT', repeat: repeatOptions[0] })
-    /*setNotification({
-      ...notification,
-      repeat: repeatOptions[0],
-    })*/
     : dispatch({ type: 'CHANGE_REPEAT', repeat: repeatOptions[repeatOptions.findIndex(x => x == state.memo.repeat) + 1] })
-    /*setNotification({
-      ...notification,
-      repeat: repeatOptions[repeatOptions.findIndex(x => x == notification.repeat) + 1],
-    })*/
 
   const validateInput = () => {
     error = []
@@ -146,18 +109,13 @@ export default () => {
       
       {state.page == 'set' && <SetPage
         notification={state.memo}
-        //titleChange={newText => setNotification({ ...notification, title: newText })}
         titleChange={newTitle => dispatch({ type: 'CHANGE_TITLE', title: newTitle })}
-        //textChange={newText => setNotification({ ...notification, text: newText })}
         textChange={newText => dispatch({ type: 'CHANGE_TEXT', text: newText })}
         repeatFunc={toggleRepeat}
-        //repeatTimeFunc={newTime => setNotification({ ...notification, repeatTime: +newTime })}
         repeatTimeFunc={newTime => dispatch({ type: 'CHANGE_REPEAT_TIME', repeatTime: +newTime })}
         decreaseRepeat={decreaseRepeat}
         increaseRepeat={increaseRepeat}
-        //dateFunc={() => setShowDatePicker(true)}
         dateFunc={() => dispatch({ type: 'DISPLAY_POPUP', popup: 'calendar' })}
-        //timeFunc={() => setShowTimePicker(true)}
         timeFunc={() => dispatch({ type: 'DISPLAY_POPUP', popup: 'clock' })}
         submitHandler={submitHandler}
         reset={resetFields}
@@ -176,17 +134,3 @@ export default () => {
     </KeyboardAvoidingView>
   )
 }
-
-const resetNotification = () => {
-  const now = new Date()
-  return {
-    title: '',
-    text: '',
-    repeat: repeatOptions[0],
-    repeatTime: 48,
-    date: now.toDateString(),
-    time: formatTime(now),
-  }
-}
-
-const now = new Date()
