@@ -10,10 +10,11 @@ import { cancelAllNotifs, cancelNotif, scheduleNotif } from './NotifService'
 import reducer from './StateService'
 import { findAndRemoveold } from './StoreService'
 import { repeatOptions } from './modules/repeat'
+import { formatMinutes, formatTime } from './modules/time'
 
-const formatMinutes = minutes => minutes.toString().length == 1 ? `0${minutes}` : minutes
+//const formatMinutes = minutes => minutes.toString().length == 1 ? `0${minutes}` : minutes
 
-const formatTime = time => `${time.getHours()}:${formatMinutes(time.getMinutes())}`
+//const formatTime = time => `${time.getHours()}:${formatMinutes(time.getMinutes())}`
 
 const initialState = {
   status: 'loading',
