@@ -11,13 +11,14 @@ const actions = {
         ...state,
         message: action.message || '',
         status: 'loading',
-        toDelete: null,
+        toDelete: typeof action.toDelete != 'undefined' ? action.toDelete : state.toDelete,
     }),
     NEW: (state, action) => ({
       ...state,
       message: '',
       page: 'set',
       status: 'new',
+      toDelete: null,
     }),
     RESOLVE: (state, action) => ({
         ...state,
@@ -91,8 +92,12 @@ const actions = {
             repeat: repeatOptions[0],
             repeatTime: 48,
             date: new Date().toDateString(),
-            time: formatTime(new Date())
+            time: formatTime(new Date()),
         }
+    }),
+    RESTORE_MEMO: (state, action) => ({
+        ...state,
+        status: 'restoring',
     }),
     SCHEDULE_MEMO: (state, action) => ({
         ...state,

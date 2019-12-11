@@ -6,9 +6,9 @@ import { MessageBox } from './components/MessageBox'
 import { SetPage } from './components/SetPage'
 import { ViewPage } from './components/ViewPage'
 import { styles } from './styles'
-import { cancelAllNotifs, cancelNotif, scheduleNotif } from './NotifService'
+import { cancelAllNotifs, cancelNotif, removeDeleted, scheduleNotif } from './NotifService'
 import reducer from './StateService'
-import { findAndRemoveold } from './StoreService'
+import { findAndRemoveold, restore } from './StoreService'
 import { repeatOptions } from './modules/repeat'
 import { formatTime } from './modules/time'
 
@@ -51,11 +51,22 @@ export default () => {
   }, [ state.status ])
 
   useEffect(() => {
-    if (state.status == 'deleting') (state.toDelete == 'all'
+    if (state.status == 'deleting') state.toDelete == 'all'
       ? cancelAllNotifs()
-      : cancelNotif(state.toDelete.id))
-        .then(_ => dispatch({ type: 'LOAD', message: `${state.toDelete.title || 'All memos' } succesfully deleted.` }))
+        .then(() => dispatch({ type: 'LOAD', message: 'All memos succesfully deleted.', toDelete: null }))
+      : cancelNotif(state.toDelete.id)
+        .then(() => dispatch({ type: 'LOAD', message: `${state.toDelete.title} succesfully deleted.` }))
   }, [ state.status ])
+
+  useEffect(() => {
+    if (state.status == 'success' && state.message.includes('deleted')) setTimeout(removeDeleted, 30000)
+  }, [ state.status ])
+
+  useEffect(() => {
+    console.log(state.toDelete)
+    if (state.status == 'restoring') restore(state.toDelete)
+      .then(() => dispatch({ type: 'LOAD', message: `${state.toDelete.title} is back!`, toDelete: null }))
+  })
 
   const cancel = memo => dispatch({ type: 'DELETE_MEMO', toDelete: memo })
     
@@ -113,7 +124,9 @@ export default () => {
 
       {state.message != '' && <MessageBox
         text={state.message}
-        close={() => dispatch({ type: 'LOAD' })}
+        close={() => dispatch({ type: 'LOAD', toDelete: null })}
+        toDelete={state.toDelete}
+        undo={() => dispatch({ type: 'RESTORE_MEMO' })}
       />}
       
       {state.page == 'set' && <SetPage
