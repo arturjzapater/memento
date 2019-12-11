@@ -39,8 +39,8 @@ export default () => {
           .catch(err => dispatch({ type: 'REJECT', err }))
   }, [state.status])
 
-  const cancel = notification => cancelNotif(notification.id)
-    .then(_ => dispatch({ type: 'LOAD', message: `${notification.title} succesfully deleted.` }))
+  const cancel = memo => cancelNotif(memo.id)
+    .then(_ => dispatch({ type: 'LOAD', message: `${memo.title} succesfully deleted.` }))
   
   const cancelAll = () => Alert.alert(
       'Are you sure?',
@@ -108,7 +108,7 @@ export default () => {
       />}
       
       {state.page == 'set' && <SetPage
-        notification={state.memo}
+        memo={state.memo}
         titleChange={newTitle => dispatch({ type: 'CHANGE_TITLE', title: newTitle })}
         textChange={newText => dispatch({ type: 'CHANGE_TEXT', text: newText })}
         repeatFunc={toggleRepeat}

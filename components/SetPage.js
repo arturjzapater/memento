@@ -13,25 +13,25 @@ const SetPage = props => (
                 style={{ ...styles.label, ...styles.textInput }}
                 onChangeText={props.titleChange}
                 placeholder='Write your title'
-                value={props.notification.title}
+                value={props.memo.title}
                 maxLength={40}
             />
             <TextInput
                 style={{ ...styles.label, ...styles.textInput}}
                 onChangeText={props.textChange}
                 placeholder='Write your text'
-                value={props.notification.text}
+                value={props.memo.text}
                 maxLength={240}
                 multiline={true}
                 numberOfLines={3}
             />
             <TouchableOpacity style={styles.touch} onPress={props.repeatFunc}>
             <Text style={styles.label}>Repeat: </Text>
-            <Text style={{ ...styles.bold, ...styles.label }}>{props.notification.repeat.key}</Text>
+            <Text style={{ ...styles.bold, ...styles.label }}>{props.memo.repeat.key}</Text>
             </TouchableOpacity>
 
-            {props.notification.repeat.value == 'time' && <RepeatTile 
-                repeatTime={props.notification.repeatTime}
+            {props.memo.repeat.value == 'time' && <RepeatTile 
+                repeatTime={props.memo.repeatTime}
                 repeatTimeFunc={props.repeatTimeFunc}
                 decreaseRepeat={props.decreaseRepeat}
                 increaseRepeat={props.increaseRepeat}
@@ -41,13 +41,13 @@ const SetPage = props => (
                 textStyle={{ ...styles.bold, ...styles.label }}
                 touchStyle={styles.touch}
                 func={props.dateFunc}
-                text={props.notification.date}
+                text={props.memo.date}
             />
             <Button
                 textStyle={{ ...styles.bold, ...styles.label }}
                 touchStyle={styles.touch}
                 func={props.timeFunc}
-                text={props.notification.time}
+                text={props.memo.time}
             />
         </ScrollView>
         <View style={styles.group}>
@@ -55,7 +55,7 @@ const SetPage = props => (
                 textStyle={{ ...styles.bold, ...styles.label }}
                 touchStyle={{ ...styles.touch, ...styles.touchAction }}
                 func={props.submitHandler}
-                text='Set Notification'
+                text='Set Memo'
             />
             <Button
                 textStyle={{ ...styles.bold, ...styles.label }}
