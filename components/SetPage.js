@@ -12,14 +12,16 @@ const SetPage = props => (
             <TextInput
                 style={{ ...styles.label, ...styles.textInput }}
                 onChangeText={props.titleChange}
-                placeholder='Write your title'
+                placeholder='Write your title (required)'
+                placeholderTextColor='hsl(270, 80%, 80%)'
                 value={props.memo.title}
                 maxLength={40}
             />
             <TextInput
                 style={{ ...styles.label, ...styles.textInput}}
                 onChangeText={props.textChange}
-                placeholder='Write your text'
+                placeholder='Write your text (optional)'
+                placeholderTextColor='hsl(270, 80%, 80%)'
                 value={props.memo.text}
                 maxLength={240}
                 multiline={true}
