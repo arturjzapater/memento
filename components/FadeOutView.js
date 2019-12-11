@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Animated } from 'react-native'
+import { Animated, Easing } from 'react-native'
 
 export { FadeOutView }
 
@@ -10,8 +10,9 @@ const FadeOutView = props => {
     Animated.timing(
         fadeOut,
         {
-        toValue: 0,
-        duration: 29000,
+            toValue: 0,
+            duration: 25000,
+            easing: Easing.exp,
         }
     ).start()
     }, [])
