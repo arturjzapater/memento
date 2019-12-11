@@ -25,7 +25,7 @@ const ViewPage = props => (
             textStyle={{ ...styles.bold, ...styles.label }}
             touchStyle={{ ...styles.touch, ...styles.touchDanger }}
             func={props.cancelAll}
-            text='Cancel All Memos'
+            text='Delete All Memos'
         />
     </FadeInView>
 )
