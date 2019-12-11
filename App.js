@@ -26,6 +26,7 @@ const initialState = {
   message: '',
   page: 'view',
   popup: '',
+  toDelete: null,
   error: null,
 }
 
@@ -37,7 +38,7 @@ export default () => {
           .then(data => data.sort((a, b) => new Date(a.date) > new Date(b.date)))
           .then(data => dispatch({ type: 'RESOLVE', data }))
           .catch(err => dispatch({ type: 'REJECT', err }))
-  }, [state.status])
+  }, [ state.status ])
 
   useEffect(() => {
     if (state.status == 'scheduling') scheduleNotif({
@@ -47,10 +48,19 @@ export default () => {
       })
       .then(() => dispatch({ type: 'LOAD', message: `I will remind you about ${state.memo.title}!`}))
       .then(resetFields)
-  }, [state.status])
+  }, [ state.status ])
 
-  const cancel = memo => cancelNotif(memo.id)
-    .then(_ => dispatch({ type: 'LOAD', message: `${memo.title} succesfully deleted.` }))
+  useEffect(() => {
+    if (state.status == 'deleting') (state.toDelete == 'all'
+      ? cancelAllNotifs()
+      : cancelNotif(state.toDelete.id))
+        .then(_ => dispatch({ type: 'LOAD', message: `${state.toDelete.title || 'All memos' } succesfully deleted.` }))
+  }, [ state.status ])
+
+  const cancel = memo => dispatch({ type: 'DELETE_MEMO', toDelete: memo })
+  
+  /*cancelNotif(memo.id)
+    .then(_ => dispatch({ type: 'LOAD', message: `${memo.title} succesfully deleted.` }))*/
   
   const cancelAll = () => Alert.alert(
       'Are you sure?',
@@ -58,8 +68,9 @@ export default () => {
       [
           {
               text: 'Yes, proceed',
-              onPress: () => cancelAllNotifs()
-                  .then(_ => dispatch({ type: 'LOAD', message: 'Deleted all memos.' })),
+              onPress: () => dispatch({ type: 'DELETE_MEMO', toDelete: 'all' })
+              /*cancelAllNotifs()
+                  .then(_ => dispatch({ type: 'LOAD', message: 'Deleted all memos.' })),*/
           },
           {
               text: 'I\'ve changed my mind',
@@ -80,16 +91,17 @@ export default () => {
 
   const submitHandler = () => {
     const error = validateInput()
-    if (error == null) {
-      dispatch({ type: 'SCHEDULE_MEMO' })
-      /*scheduleNotif({
+    if (error == null) dispatch({ type: 'SCHEDULE_MEMO' })
+      /*{
+        scheduleNotif({
           ...state.memo,
           date: `${state.memo.date} ${state.memo.time}`,
           repeatType: state.memo.repeat.value,
         })
         .then(() => dispatch({ type: 'LOAD', message: `I will remind you about ${state.memo.title}!`}))
-        .then(resetFields)*/
-    } else Alert.alert('Wait a moment!', error.join('\n'))
+        .then(resetFields)
+      }*/
+    else Alert.alert('Wait a moment!', error.join('\n'))
   }
 
   const timeHandler = (event, newTime) => dispatch({

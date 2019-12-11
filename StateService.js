@@ -11,6 +11,7 @@ const actions = {
         ...state,
         message: action.message || '',
         status: 'loading',
+        toDelete: null,
     }),
     NEW: (state, action) => ({
       ...state,
@@ -76,6 +77,11 @@ const actions = {
     DISPLAY_POPUP: (state, action) => ({
         ...state,
         popup: action.popup,
+    }),
+    DELETE_MEMO: (state, action) => ({
+        ...state,
+        status: 'deleting',
+        toDelete: action.toDelete,
     }),
     RESET_MEMO: (state, action) => ({
         ...state,
