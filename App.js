@@ -59,13 +59,16 @@ export default () => {
   }, [ state.status ])
 
   useEffect(() => {
-    if (state.status == 'success' && state.message.includes('deleted')) setTimeout(removeDeleted, 30000)
+    if (state.status == 'success' && state.message.includes('deleted')) setTimeout(() => {
+      removeDeleted()
+      if (state.message != '') dispatch({ type: 'LOAD', toDelete: null })
+    }, 30000)
   }, [ state.status ])
 
   useEffect(() => {
     if (state.status == 'restoring') restore(state.toDelete)
       .then(() => dispatch({ type: 'LOAD', message: `${state.toDelete.title} is back!`, toDelete: null }))
-  })
+  }, [ state.status])
 
   const cancel = memo => dispatch({ type: 'DELETE_MEMO', toDelete: memo })
     
