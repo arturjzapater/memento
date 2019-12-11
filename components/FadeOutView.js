@@ -11,7 +11,7 @@ const FadeOutView = props => {
         fadeOut,
         {
             toValue: 0,
-            duration: 25000,
+            duration: 28000,
             easing: Easing.exp,
         }
     ).start()
