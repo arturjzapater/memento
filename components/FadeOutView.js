@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { Animated } from 'react-native'
 
-export { FadeInView }
+export { FadeOutView }
 
-const FadeInView = props => {
+const FadeOutView = props => {
     const [ fadeOut ] = useState(new Animated.Value(1))
 
     useEffect(() => {
