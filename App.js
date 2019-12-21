@@ -30,7 +30,7 @@ const initialState = {
 	error: null,
 }
 
-const sideEffectHandler = dispatch => ({
+const sideEffects = dispatch => ({
 	loading: () => findAndRemoveold()
 		.then(data => data.sort((a, b) => new Date(a.date) > new Date(b.date)))
 		.then(data => dispatch({ type: 'RESOLVE', data }))
@@ -72,6 +72,11 @@ const sideEffectHandler = dispatch => ({
 export default () => {
 	const [ state, dispatch ] = useReducer(reducer, initialState)
 
+	const sideEffectHandler = sideEffects(dispatch)
+	useEffect(() => {
+		if (Object.keys(sideEffectHandler).includes(state.status)) sideEffectHandler[state.status](state)
+	}, [ state.status ])
+/*
 	useEffect(() => {
 		if (state.status == 'loading') findAndRemoveold()
 			.then(data => data.sort((a, b) => new Date(a.date) > new Date(b.date)))
@@ -108,7 +113,7 @@ export default () => {
 		if (state.status == 'restoring') restore(state.toDelete)
 			.then(() => dispatch({ type: 'LOAD', message: `${state.toDelete.title} is back!`, toDelete: null }))
 	}, [ state.status ])
-
+*/
 	const cancel = memo => dispatch({ type: 'DELETE_MEMO', toDelete: memo })
 		
 	const cancelAll = () => Alert.alert(
