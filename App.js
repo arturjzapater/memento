@@ -44,7 +44,7 @@ const sideEffects = dispatch => ({
 			type: 'LOAD',
 			message: `I will remind you about ${state.memo.title}!`
 		}))
-		.then(resetFields),
+		.then(() => dispatch({ type: 'NEW' })),
 	deleting: state => state.toDelete == 'all'
 		? cancelAllNotifs()
 			.then(() => dispatch({
@@ -186,7 +186,7 @@ export default () => {
 				dateFunc={() => dispatch({ type: 'DISPLAY_POPUP', popup: 'calendar' })}
 				timeFunc={() => dispatch({ type: 'DISPLAY_POPUP', popup: 'clock' })}
 				submitHandler={submitHandler}
-				reset={resetFields}
+				reset={() => dispatch({ type: 'NEW' })}
 				cancel={() => dispatch({ type: 'LOAD' })}
 			/>}
 
