@@ -44,7 +44,6 @@ const sideEffects = dispatch => ({
 			type: 'LOAD',
 			message: `I will remind you about ${state.memo.title}!`
 		})),
-		//.then(() => dispatch({ type: 'NEW' })),
 	deleting: state => state.toDelete == 'all'
 		? cancelAllNotifs()
 			.then(() => dispatch({
@@ -76,44 +75,7 @@ export default () => {
 	useEffect(() => {
 		if (Object.keys(sideEffectHandler).includes(state.status)) sideEffectHandler[state.status](state)
 	}, [ state.status ])
-/*
-	useEffect(() => {
-		if (state.status == 'loading') findAndRemoveold()
-			.then(data => data.sort((a, b) => new Date(a.date) > new Date(b.date)))
-			.then(data => dispatch({ type: 'RESOLVE', data }))
-			.catch(err => dispatch({ type: 'REJECT', err }))
-	}, [ state.status ])
 
-	useEffect(() => {
-		if (state.status == 'scheduling') scheduleNotif({
-				...state.memo,
-				date: `${state.memo.date} ${state.memo.time}`,
-				repeatType: state.memo.repeat.value,
-			})
-			.then(() => dispatch({ type: 'LOAD', message: `I will remind you about ${state.memo.title}!`}))
-			.then(resetFields)
-	}, [ state.status ])
-
-	useEffect(() => {
-		if (state.status == 'deleting') state.toDelete == 'all'
-			? cancelAllNotifs()
-				.then(() => dispatch({ type: 'LOAD', message: 'All memos succesfully deleted.', toDelete: null }))
-			: cancelNotif(state.toDelete.id)
-				.then(() => dispatch({ type: 'LOAD', message: `${state.toDelete.title} succesfully deleted.` }))
-	}, [ state.status ])
-
-	useEffect(() => {
-		if (state.status == 'success' && state.message.includes('deleted')) setTimeout(() => {
-			removeDeleted()
-			if (state.message != '') dispatch({ type: 'LOAD', toDelete: null })
-		}, 30000)
-	}, [ state.status ])
-
-	useEffect(() => {
-		if (state.status == 'restoring') restore(state.toDelete)
-			.then(() => dispatch({ type: 'LOAD', message: `${state.toDelete.title} is back!`, toDelete: null }))
-	}, [ state.status ])
-*/
 	const cancel = memo => dispatch({ type: 'DELETE_MEMO', toDelete: memo })
 		
 	const cancelAll = () => Alert.alert(
@@ -138,8 +100,6 @@ export default () => {
 	const decreaseRepeat = () => dispatch({ type: 'CHANGE_REPEAT_TIME', repeatTime: state.memo.repeatTime - 1 })
 
 	const increaseRepeat = () => dispatch({ type: 'CHANGE_REPEAT_TIME', repeatTime: state.memo.repeatTime + 1 })
-
-	//const resetFields = () => dispatch({ type: 'RESET_MEMO' })
 
 	const submitHandler = () => {
 		const error = validateInput()
