@@ -43,8 +43,8 @@ const sideEffects = dispatch => ({
 		.then(() => dispatch({
 			type: 'LOAD',
 			message: `I will remind you about ${state.memo.title}!`
-		}))
-		.then(() => dispatch({ type: 'NEW' })),
+		})),
+		//.then(() => dispatch({ type: 'NEW' })),
 	deleting: state => state.toDelete == 'all'
 		? cancelAllNotifs()
 			.then(() => dispatch({
