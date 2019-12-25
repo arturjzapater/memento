@@ -139,7 +139,7 @@ export default () => {
 
 	const increaseRepeat = () => dispatch({ type: 'CHANGE_REPEAT_TIME', repeatTime: state.memo.repeatTime + 1 })
 
-	const resetFields = () => dispatch({ type: 'RESET_MEMO' })
+	//const resetFields = () => dispatch({ type: 'RESET_MEMO' })
 
 	const submitHandler = () => {
 		const error = validateInput()

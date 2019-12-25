@@ -92,7 +92,7 @@ const actions = {
         status: 'deleting',
         toDelete: action.toDelete,
     }),
-    RESET_MEMO: (state, action) => ({
+    /*RESET_MEMO: (state, action) => ({
         ...state,
         memo: {
             title: '',
@@ -102,7 +102,7 @@ const actions = {
             date: new Date().toDateString(),
             time: formatTime(new Date()),
         }
-    }),
+    }),*/
     RESTORE_MEMO: (state, action) => ({
         ...state,
         status: 'restoring',
