@@ -11,6 +11,7 @@ import reducer from './StateService'
 import { findAndRemoveold, restore } from './StoreService'
 import { repeatOptions } from './modules/repeat'
 import { formatTime } from './modules/time'
+import sideEffects from './modules/sideEffects'
 
 const initialState = {
 	status: 'loading',
@@ -29,7 +30,7 @@ const initialState = {
 	toDelete: null,
 	error: null,
 }
-
+/*
 const sideEffects = dispatch => ({
 	loading: () => findAndRemoveold()
 		.then(data => data.sort((a, b) => new Date(a.date) > new Date(b.date)))
@@ -66,7 +67,7 @@ const sideEffects = dispatch => ({
 			removeDeleted()
 			if (state.message != '') dispatch({ type: 'LOAD', toDelete: null })
 		}, 30000),
-})
+})*/
 
 export default () => {
 	const [ state, dispatch ] = useReducer(reducer, initialState)
