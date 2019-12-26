@@ -41,14 +41,14 @@ export default () => {
 		
 	const cancelAll = () => Alert.alert(
 		'Are you sure?',
-		'This action will cancel every single memo you have scheduled, including snoozed ones. Do you really want to do that?',
+		'This action will cancel every single memo, including snoozed ones. Do you want to proceed?',
 		[
 			{
 				text: 'Yes, proceed',
 				onPress: () => dispatch({ type: 'DELETE_MEMO', toDelete: 'all' })
 			},
 			{
-				text: 'I\'ve changed my mind',
+				text: 'No, I\'ve changed my mind',
 			}
 		]
 	)
