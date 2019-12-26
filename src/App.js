@@ -41,7 +41,7 @@ export default () => {
 		
 	const cancelAll = () => Alert.alert(
 		'Are you sure?',
-		'This action will cancel every single memo, including snoozed ones. Do you want to proceed?',
+		'This action will cancel every single scheduled memo, including snoozed ones. Do you want to proceed?',
 		[
 			{
 				text: 'Yes, proceed',
