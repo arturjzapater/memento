@@ -2,9 +2,9 @@ import React from 'react'
 import { Image, Text, View } from 'react-native'
 import { styles } from '../styles'
 
-export { Menu }
+export { Header }
 
-const Menu = props => {
+const Header = props => {
   const label = props.active == 'set'
     ? 'Create New Memo'
     : 'View Memos'
