@@ -15,12 +15,9 @@ const ViewPage = props => (
             renderItem={({ item }) => <Item cancel={() => props.cancelOne(item)} title={item.title} date={item.date} repeatType={item.repeatType} repeatTime={item.repeatTime} />}
             keyExtractor={item => `item-${item.id}`}
         />
-        <Button
-            textStyle={{ ...styles.bold, ...styles.label, ...styles.roundBtnText }}
-            touchStyle={{ ...styles.roundButton, ...styles.touchAction }}
-            func={props.newMemo}
-            text='+'
-        />
+        <TouchableOpacity style={{ ...styles.roundButton, ...styles.touchAction }} onPress={props.newMemo}>
+            <Image style={{ width: 60, height: 60 }} source={require('../icons/plus.png')} />
+        </TouchableOpacity>
         <Button
             textStyle={{ ...styles.bold, ...styles.label }}
             touchStyle={{ ...styles.touch, ...styles.touchDanger }}
