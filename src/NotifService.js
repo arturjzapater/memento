@@ -3,7 +3,7 @@ import PushNotification from 'react-native-push-notification'
 import { clearToDelete, find, remove, removeAll, update } from './StoreService'
 
 PushNotification.configure({
-  smallIcon: 'ic_launcher',
+  smallIcon: 'ic_notification',
   onNotification: notification => Alert.alert(
       notification.title,
       notification.message,
@@ -58,7 +58,7 @@ const pushNotif = ({ id, title, text, date, repeatType, repeatTime }) =>
     ticker: 'Memento Notification Ticker',
     autoCancel: true,
     largeIcon: 'ic_launcher',
-    smallIcon: 'ic_launcher',
+    smallIcon: 'ic_notification',
     subText: 'Remember, remember!',
     vibrate: true,
     vibration: 1000,
