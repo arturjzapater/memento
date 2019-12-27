@@ -37,7 +37,7 @@ const Empty = () => (
             It looks like you have no memos.
         </Text>
         <Text style={styles.label}>
-            Create new memos by tapping on the plus (+) button!
+            Create new memos by tapping on the 'Create Memo' button!
         </Text>
     </View>
 )
