@@ -67,9 +67,9 @@ const SetPage = props => (
             />
             <Button
                 textStyle={{ ...styles.bold, ...styles.label }}
-                touchStyle={{ ...styles.touch, ...styles.touchDanger }}
+                touchStyle={styles.touch}
                 func={props.cancel}
-                text='Cancel'
+                text='Go Back'
             />
         </View>
     </FadeInView>
