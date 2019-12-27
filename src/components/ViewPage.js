@@ -29,9 +29,14 @@ const ViewPage = props => (
 )
 
 const Empty = () => (
-    <Text style={styles.label}>
-        It looks like you have no memos. Start creating new memos by tapping on the + button!
-    </Text>
+    <View>
+        <Text style={styles.label}>
+            It looks like you have no memos.
+        </Text>
+        <Text style={styles.label}>
+            Create new memos by tapping on the plus (+) button!
+        </Text>
+    </View>
 )
 
 const Item = props => (
