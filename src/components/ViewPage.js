@@ -16,9 +16,12 @@ const ViewPage = props => (
             keyExtractor={item => `item-${item.id}`}
             ListEmptyComponent={<Empty />}
         />
-        <TouchableOpacity style={{ ...styles.roundButton, ...styles.touchAction }} onPress={props.newMemo}>
-            <Image style={{ width: 55, height: 55 }} source={require('../icons/plus.png')} />
-        </TouchableOpacity>
+        <Button
+            textStyle={{ ...styles.bold, ...styles.label }}
+            touchStyle={{ ...styles.touch, ...styles.touchAction }}
+            func={props.newMemo}
+            text='Create Memo'
+        />
         <Button
             textStyle={{ ...styles.bold, ...styles.label }}
             touchStyle={{ ...styles.touch, ...styles.touchDanger }}
