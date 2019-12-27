@@ -87,7 +87,7 @@ export default () => {
 	return(
 		<KeyboardAvoidingView style={styles.main} behavior='height' enabled>
 			<StatusBar hidden={true} />
-			<Menu active={state.page} set={() => dispatch({ type: 'NEW' })} view={() => dispatch({ type: 'LOAD' })} />
+			<Menu active={state.page} />
 
 			{state.message != '' && <MessageBox
 				text={state.message}

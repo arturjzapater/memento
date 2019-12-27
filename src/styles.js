@@ -73,7 +73,10 @@ export const styles = StyleSheet.create({
         backgroundColor: colours.darkDetail,
         elevation: 10,
         marginBottom: 8,
-        paddingTop: 10,
+        paddingTop: 12,
+    },
+    menuText: {
+        padding: 10,
     },
     message: {
         color: colours.darkDetail,
