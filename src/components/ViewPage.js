@@ -17,7 +17,7 @@ const ViewPage = props => (
             ListEmptyComponent={<Empty />}
         />
         <TouchableOpacity style={{ ...styles.roundButton, ...styles.touchAction }} onPress={props.newMemo}>
-            <Image style={{ width: 60, height: 60 }} source={require('../icons/plus.png')} />
+            <Image style={{ width: 55, height: 55 }} source={require('../icons/plus.png')} />
         </TouchableOpacity>
         <Button
             textStyle={{ ...styles.bold, ...styles.label }}
