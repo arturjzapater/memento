@@ -14,6 +14,7 @@ const ViewPage = props => (
             data={props.list}
             renderItem={({ item }) => <Item cancel={() => props.cancelOne(item)} title={item.title} date={item.date} repeatType={item.repeatType} repeatTime={item.repeatTime} />}
             keyExtractor={item => `item-${item.id}`}
+            ListEmptyComponent={<Empty />}
         />
         <TouchableOpacity style={{ ...styles.roundButton, ...styles.touchAction }} onPress={props.newMemo}>
             <Image style={{ width: 60, height: 60 }} source={require('../icons/plus.png')} />
@@ -25,6 +26,12 @@ const ViewPage = props => (
             text='Delete All Memos'
         />
     </FadeInView>
+)
+
+const Empty = () => (
+    <Text style={styles.label}>
+        It looks like you have no memos. Start creating new memos by tapping on the + button!
+    </Text>
 )
 
 const Item = props => (
