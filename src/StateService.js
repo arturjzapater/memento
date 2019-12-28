@@ -64,7 +64,7 @@ const actions = {
         ...state,
         memo: {
             ...state.memo,
-            repeatTime: action.repeatTime,
+            repeatTime: Number.isNaN(action.repeatTime) ? state.memo.repeatTime : action.repeatTime,
         },
     }),
     CHANGE_DATE: (state, action) => ({
