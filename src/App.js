@@ -58,10 +58,6 @@ export default () => {
 		date: newDate ? newDate.toDateString() : state.memo.date
 	})
 
-	//const decreaseRepeat = () => dispatch({ type: 'CHANGE_REPEAT_TIME', repeatTime: state.memo.repeatTime - 1 })
-
-	//const increaseRepeat = () => dispatch({ type: 'CHANGE_REPEAT_TIME', repeatTime: state.memo.repeatTime + 1 })
-
 	const submitHandler = () => {
 		const error = validateInput()
 		if (error == null) dispatch({ type: 'SCHEDULE_MEMO' })
@@ -72,10 +68,6 @@ export default () => {
 		type: 'CHANGE_TIME',
 		time: newTime ? formatTime(newTime) : state.memo.time
 	})
-
-	/*const toggleRepeat = () => state.memo.repeat == repeatOptions[repeatOptions.length - 1]
-		? dispatch({ type: 'CHANGE_REPEAT', repeat: repeatOptions[0] })
-		: dispatch({ type: 'CHANGE_REPEAT', repeat: repeatOptions[repeatOptions.findIndex(x => x == state.memo.repeat) + 1] })*/
 
 	const validateInput = () => {
 		const error = []
@@ -100,11 +92,8 @@ export default () => {
 				memo={state.memo}
 				titleChange={newTitle => dispatch({ type: 'CHANGE_TITLE', title: newTitle })}
 				textChange={newText => dispatch({ type: 'CHANGE_TEXT', text: newText })}
-				//repeatFunct={toggleRepeat}
 				repeatFunc={(value, index) => dispatch({ type: 'CHANGE_REPEAT', repeat: repeatOptions[index] })}
 				repeatTimeFunc={newTime => dispatch({ type: 'CHANGE_REPEAT_TIME', repeatTime: +newTime })}
-				//decreaseRepeat={decreaseRepeat}
-				//increaseRepeat={increaseRepeat}
 				dateFunc={() => dispatch({ type: 'DISPLAY_POPUP', popup: 'calendar' })}
 				timeFunc={() => dispatch({ type: 'DISPLAY_POPUP', popup: 'clock' })}
 				submitHandler={submitHandler}
