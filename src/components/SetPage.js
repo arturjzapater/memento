@@ -56,12 +56,12 @@ const SetPage = props => (
                     </View>}
             </View>
 
-            {props.memo.repeat.value == 'time' && <RepeatTile 
+            {/*props.memo.repeat.value == 'time' && <RepeatTile 
                 repeatTime={props.memo.repeatTime}
                 repeatTimeFunc={props.repeatTimeFunc}
                 decreaseRepeat={props.decreaseRepeat}
                 increaseRepeat={props.increaseRepeat}
-            />}
+/>*/}
 
             <Button
                 textStyle={{ ...styles.bold, ...styles.label }}
