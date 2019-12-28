@@ -103,8 +103,8 @@ export default () => {
 				//repeatFunct={toggleRepeat}
 				repeatFunc={(value, index) => dispatch({ type: 'CHANGE_REPEAT', repeat: repeatOptions[index] })}
 				repeatTimeFunc={newTime => dispatch({ type: 'CHANGE_REPEAT_TIME', repeatTime: +newTime })}
-				decreaseRepeat={decreaseRepeat}
-				increaseRepeat={increaseRepeat}
+				//decreaseRepeat={decreaseRepeat}
+				//increaseRepeat={increaseRepeat}
 				dateFunc={() => dispatch({ type: 'DISPLAY_POPUP', popup: 'calendar' })}
 				timeFunc={() => dispatch({ type: 'DISPLAY_POPUP', popup: 'clock' })}
 				submitHandler={submitHandler}

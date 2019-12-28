@@ -34,8 +34,8 @@ const SetPage = props => (
 </TouchableOpacity>*/}
 
             <View style={styles.picker}>
-                <View style={styles.pickerRow}>
-                    <Text style={styles.label}>Repeat:</Text>
+                <Text style={styles.label}>Repeat</Text>
+                <View style={styles.pickerOption}>
                     <Picker
                         style={{ ...styles.label, width: 180 }}
                         selectedValue={props.memo.repeat.value}
@@ -44,17 +44,19 @@ const SetPage = props => (
                         {repeatOptions.map(x => <Picker.Item label={x.key} value={x.value} />)}
                     </Picker>
                 </View>
-                {props.memo.repeat.value === 'time' && <View style={styles.pickerRow}>
-                        <Text>Every</Text>
-                        <TextInput
-                            style={{ ...styles.bold, ...styles.label, ...styles.timeInput }}
-                            onChangeText={props.repeatTimeFunc}
-                            value={props.memo.repeatTime.toString()}
-                            keyboardType='numeric'
-                        />
-                        <Text>hours</Text>
-                    </View>}
             </View>
+            {props.memo.repeat.value === 'time' && <View style={styles.picker}>
+                <Text style={styles.label}>Every</Text>
+                <View style={styles.pickerOption}>
+                    <TextInput
+                        style={{ ...styles.bold, ...styles.label, ...styles.timeInput }}
+                        onChangeText={props.repeatTimeFunc}
+                        value={props.memo.repeatTime.toString()}
+                        keyboardType='numeric'
+                    />
+                    <Text style={styles.label}>{props.memo.repeatTime == 1 ? 'hour' : 'hours'}</Text>
+                </View>
+            </View>}
 
             {/*props.memo.repeat.value == 'time' && <RepeatTile 
                 repeatTime={props.memo.repeatTime}
