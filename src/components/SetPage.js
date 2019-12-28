@@ -34,14 +34,26 @@ const SetPage = props => (
 </TouchableOpacity>*/}
 
             <View style={styles.picker}>
-                <Text style={styles.label}>Repeat:</Text>
-                <Picker
-                    style={{ ...styles.label, width: 180 }}
-                    selectedValue={props.memo.repeat.value}
-                    onValueChange={props.repeatFunc}
-                >
-                    {repeatOptions.map(x => <Picker.Item label={x.key} value={x.value} />)}
-                </Picker>
+                <View style={styles.pickerRow}>
+                    <Text style={styles.label}>Repeat:</Text>
+                    <Picker
+                        style={{ ...styles.label, width: 180 }}
+                        selectedValue={props.memo.repeat.value}
+                        onValueChange={props.repeatFunc}
+                    >
+                        {repeatOptions.map(x => <Picker.Item label={x.key} value={x.value} />)}
+                    </Picker>
+                </View>
+                {props.memo.repeat.value === 'time' && <View style={styles.pickerRow}>
+                        <Text>Every</Text>
+                        <TextInput
+                            style={{ ...styles.bold, ...styles.label, ...styles.timeInput }}
+                            onChangeText={props.repeatTimeFunc}
+                            value={props.memo.repeatTime.toString()}
+                            keyboardType='numeric'
+                        />
+                        <Text>hours</Text>
+                    </View>}
             </View>
 
             {props.memo.repeat.value == 'time' && <RepeatTile 

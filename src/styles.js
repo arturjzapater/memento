@@ -112,7 +112,7 @@ export const styles = StyleSheet.create({
     picker: {
         alignSelf: 'stretch',
         flex: 1,
-        flexDirection: 'row',
+        flexDirection: 'column',
         justifyContent: 'space-between',
         alignItems: 'center',
         backgroundColor: colours.darkDetail,
@@ -120,6 +120,11 @@ export const styles = StyleSheet.create({
         margin: 4,
         paddingHorizontal: 30,
         paddingVertical: 5,
+    },
+    pickerRow: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     textInput: {
         alignSelf: 'stretch',
