@@ -1,8 +1,9 @@
 import React from 'react'
-import { ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { Picker, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import { Button } from './Button'
 import { FadeInView } from './FadeInView'
 import { styles } from '../styles'
+import { repeatOptions } from '../modules/repeat'
 
 export { SetPage }
 
@@ -27,10 +28,21 @@ const SetPage = props => (
                 multiline={true}
                 numberOfLines={3}
             />
-            <TouchableOpacity style={styles.touch} onPress={props.repeatFunc}>
+            <TouchableOpacity style={styles.touch} onPress={props.repeatFunct}>
             <Text style={styles.label}>Repeat: </Text>
             <Text style={{ ...styles.bold, ...styles.label }}>{props.memo.repeat.key}</Text>
             </TouchableOpacity>
+
+            <View style={styles.picker}>
+                <Text style={styles.label}>Repeat:</Text>
+                <Picker
+                    style={{ ...styles.label, width: 180 }}
+                    selectedValue={props.memo.repeat.value}
+                    onValueChange={props.repeatFunc}
+                >
+                    {repeatOptions.map(x => <Picker.Item label={x.key} value={x.value} />)}
+                </Picker>
+            </View>
 
             {props.memo.repeat.value == 'time' && <RepeatTile 
                 repeatTime={props.memo.repeatTime}

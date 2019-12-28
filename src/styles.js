@@ -109,6 +109,18 @@ export const styles = StyleSheet.create({
     roundBtnText: {
         fontSize: 50,
     },
+    picker: {
+        alignSelf: 'stretch',
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        backgroundColor: colours.darkDetail,
+        borderRadius: 20,
+        margin: 4,
+        paddingHorizontal: 30,
+        paddingVertical: 5,
+    },
     textInput: {
         alignSelf: 'stretch',
         backgroundColor: colours.darkDetail,
