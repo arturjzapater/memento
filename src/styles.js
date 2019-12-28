@@ -124,6 +124,7 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: colours.darkDetail,
         borderRadius: 20,
+        height: 45,
         width: 200,
     },
     textInput: {
@@ -154,6 +155,12 @@ export const styles = StyleSheet.create({
     },
     touchDanger: {
         backgroundColor: colours.danger,
+    },
+    touchOption: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: 10,
     },
     touchLeft: {
         borderTopRightRadius: 0,

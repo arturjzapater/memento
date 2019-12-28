@@ -37,7 +37,7 @@ const SetPage = props => (
                 <Text style={styles.label}>Repeat</Text>
                 <View style={styles.pickerOption}>
                     <Picker
-                        style={{ ...styles.label, width: 180 }}
+                        style={{ ...styles.label, flex: 1, marginLeft: 40 }}
                         selectedValue={props.memo.repeat.value}
                         onValueChange={props.repeatFunc}
                     >
@@ -49,14 +49,32 @@ const SetPage = props => (
                 <Text style={styles.label}>Every</Text>
                 <View style={styles.pickerOption}>
                     <TextInput
-                        style={{ ...styles.bold, ...styles.label, ...styles.timeInput }}
+                        style={{ ...styles.bold, ...styles.label, flex: 1, textAlign: 'center' }}
                         onChangeText={props.repeatTimeFunc}
                         value={props.memo.repeatTime.toString()}
                         keyboardType='numeric'
                     />
-                    <Text style={styles.label}>{props.memo.repeatTime == 1 ? 'hour' : 'hours'}</Text>
+                    <Text style={{ ...styles.label, marginRight: 25 }}>{props.memo.repeatTime == 1 ? 'hour' : 'hours'}</Text>
                 </View>
             </View>}
+
+            <View style={styles.picker}>
+                <Text style={styles.label}>Date</Text>
+                <View style={styles.pickerOption}>
+                    <TouchableOpacity style={styles.touchOption} onPress={props.dateFunc}>
+                        <Text style={{ ...styles.bold, ...styles.label }}>{props.memo.date}</Text>
+                    </TouchableOpacity>
+                </View>
+            </View>
+
+            <View style={styles.picker}>
+                <Text style={styles.label}>Time</Text>
+                <View style={styles.pickerOption}>
+                    <TouchableOpacity style={styles.touchOption} onPress={props.timeFunc}>
+                        <Text style={{ ...styles.bold, ...styles.label }}>{props.memo.time}</Text>
+                    </TouchableOpacity>
+                </View>
+            </View>
 
             {/*props.memo.repeat.value == 'time' && <RepeatTile 
                 repeatTime={props.memo.repeatTime}
