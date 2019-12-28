@@ -81,7 +81,7 @@ const SetPage = props => (
                 repeatTimeFunc={props.repeatTimeFunc}
                 decreaseRepeat={props.decreaseRepeat}
                 increaseRepeat={props.increaseRepeat}
-/>*/}
+/>
 
             <Button
                 textStyle={{ ...styles.bold, ...styles.label }}
@@ -94,7 +94,7 @@ const SetPage = props => (
                 touchStyle={styles.touch}
                 func={props.timeFunc}
                 text={props.memo.time}
-            />
+            />*/}
         </ScrollView>
         <View style={styles.group}>
             <Button
