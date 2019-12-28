@@ -41,7 +41,7 @@ const SetPage = props => (
                         selectedValue={props.memo.repeat.value}
                         onValueChange={props.repeatFunc}
                     >
-                        {repeatOptions.map(x => <Picker.Item label={x.key} value={x.value} />)}
+                        {repeatOptions.map(x => <Picker.Item label={x.key} value={x.value} key={`repeat-${x.value}`} />)}
                     </Picker>
                 </View>
             </View>
