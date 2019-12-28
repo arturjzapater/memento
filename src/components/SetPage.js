@@ -28,10 +28,10 @@ const SetPage = props => (
                 multiline={true}
                 numberOfLines={3}
             />
-            <TouchableOpacity style={styles.touch} onPress={props.repeatFunct}>
+            {/*<TouchableOpacity style={styles.touch} onPress={props.repeatFunct}>
             <Text style={styles.label}>Repeat: </Text>
             <Text style={{ ...styles.bold, ...styles.label }}>{props.memo.repeat.key}</Text>
-            </TouchableOpacity>
+</TouchableOpacity>*/}
 
             <View style={styles.picker}>
                 <Text style={styles.label}>Repeat:</Text>

@@ -73,9 +73,9 @@ export default () => {
 		time: newTime ? formatTime(newTime) : state.memo.time
 	})
 
-	const toggleRepeat = () => state.memo.repeat == repeatOptions[repeatOptions.length - 1]
+	/*const toggleRepeat = () => state.memo.repeat == repeatOptions[repeatOptions.length - 1]
 		? dispatch({ type: 'CHANGE_REPEAT', repeat: repeatOptions[0] })
-		: dispatch({ type: 'CHANGE_REPEAT', repeat: repeatOptions[repeatOptions.findIndex(x => x == state.memo.repeat) + 1] })
+		: dispatch({ type: 'CHANGE_REPEAT', repeat: repeatOptions[repeatOptions.findIndex(x => x == state.memo.repeat) + 1] })*/
 
 	const validateInput = () => {
 		const error = []
@@ -100,7 +100,7 @@ export default () => {
 				memo={state.memo}
 				titleChange={newTitle => dispatch({ type: 'CHANGE_TITLE', title: newTitle })}
 				textChange={newText => dispatch({ type: 'CHANGE_TEXT', text: newText })}
-				repeatFunct={toggleRepeat}
+				//repeatFunct={toggleRepeat}
 				repeatFunc={(value, index) => dispatch({ type: 'CHANGE_REPEAT', repeat: repeatOptions[index] })}
 				repeatTimeFunc={newTime => dispatch({ type: 'CHANGE_REPEAT_TIME', repeatTime: +newTime })}
 				decreaseRepeat={decreaseRepeat}
