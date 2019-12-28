@@ -48,7 +48,7 @@ export default () => {
 				onPress: () => dispatch({ type: 'DELETE_MEMO', toDelete: 'all' })
 			},
 			{
-				text: 'No, I\'ve changed my mind',
+				text: 'No, I\'ll keep them',
 			}
 		]
 	)
