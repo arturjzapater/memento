@@ -72,4 +72,4 @@ const pushNotif = ({ id, title, text, date, repeatType, repeatTime }) =>
   })
 
 const snoozeNotif = (title, text) => getLastId()
-  .then(id => pushNotif(id + 1, title, text, new Date(Date.now() + 600000)))
+  .then(id => pushNotif({ id: id + 1, title, text, date: new Date(Date.now() + 600000) }))
