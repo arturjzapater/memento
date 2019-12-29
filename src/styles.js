@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native'
 
-const colours = {
+export const colours = {
     activeButton: 'hsl(270, 70%, 60%)',
     darkMain: 'hsl(270, 44%, 10%)',
     darkDetail: 'hsl(270, 35%, 20%)',
