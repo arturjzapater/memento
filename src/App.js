@@ -128,17 +128,12 @@ export default () => {
 				repeatTimeChange={newTime => dispatch({ type: 'CHANGE_REPEAT_TIME', repeatTime: +newTime })}
 				dateChange={() => dispatch({ type: 'DISPLAY_POPUP', popup: 'calendar' })}
 				timeChange={() => dispatch({ type: 'DISPLAY_POPUP', popup: 'clock' })}
-				//submitHandler={submitHandler}
 				controlNumber={controlNumber}
-				//reset={() => dispatch({ type: 'NEW' })}
-				//cancel={() => dispatch({ type: 'LOAD' })}
 			/>}
 
 			{state.page == 'view' && <ViewPage
-				cancelAll={cancelAll}
 				cancelOne={cancel}
 				list={state.data}
-				newMemo={() => dispatch({ type: 'NEW' })}
 			/>}
 
 			<Toolbar items={toolbar[state.page]} />
