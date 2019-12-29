@@ -1,9 +1,9 @@
 import React from 'react'
-import { FlatList, Image, Text, TouchableOpacity, View } from 'react-native'
+import { FlatList, Text, TouchableOpacity, View } from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons'
 import { Button } from './Button'
 import { FadeInView } from './FadeInView'
-import { styles } from '../styles'
+import { colours, styles } from '../styles'
 import { getRepeatText } from '../modules/repeat'
 
 export { ViewPage }
@@ -55,7 +55,7 @@ const Item = props => (
             </Text>
         </View>
         <TouchableOpacity onPress={props.cancel}>
-            <Icon name='md-trash' size={35} color='#fff' />
+            <Icon name='md-trash' size={35} color={colours.lightMain} />
         </TouchableOpacity>
     </View>
 )
