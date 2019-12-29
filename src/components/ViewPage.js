@@ -49,7 +49,7 @@ const Item = props => (
             <Text style={{ ...styles.label, ...styles.itemLabel }}>{props.date}</Text>
             <Text style={{ ...styles.label, ...styles.itemLabel }}>
                 Repeat {props.repeatType == 'time'
-                    ? `every ${props.repeatTime / 3600000} hours`
+                    ? `every ${getNumber('hour', getHours(props.repeatTime))}`
                     : getRepeatText(props.repeatType)}
             </Text>
         </View>
@@ -58,3 +58,7 @@ const Item = props => (
         </TouchableOpacity>
     </View>
 )
+
+const getHours = ms => ms / 3600000
+
+const getNumber = (text, num) => num != 1 ? `${num} ${text}s` : text
