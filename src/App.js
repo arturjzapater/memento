@@ -132,7 +132,7 @@ export default () => {
 			/>}
 
 			{state.page == 'view' && <ViewPage
-				cancelOne={cancel}
+				delete={cancel}
 				list={state.data}
 			/>}
 

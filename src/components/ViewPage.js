@@ -12,7 +12,7 @@ const ViewPage = props => (
         <FlatList
             style={{ alignSelf: 'stretch' }}
             data={props.list}
-            renderItem={({ item }) => <Item cancel={() => props.cancelOne(item)} title={item.title} date={item.date} repeatType={item.repeatType} repeatTime={item.repeatTime} />}
+            renderItem={({ item }) => <Item delete={() => props.delete(item)} title={item.title} date={item.date} repeatType={item.repeatType} repeatTime={item.repeatTime} />}
             keyExtractor={item => `item-${item.id}`}
             ListEmptyComponent={<Empty />}
         />
@@ -41,7 +41,7 @@ const Item = props => (
                     : getRepeatText(props.repeatType)}
             </Text>
         </View>
-        <TouchableOpacity onPress={props.cancel}>
+        <TouchableOpacity onPress={props.delete}>
             <Icon name='md-trash' size={30} color={colours.lightMain} />
         </TouchableOpacity>
     </View>
