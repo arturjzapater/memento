@@ -1,5 +1,6 @@
 import React from 'react'
 import { FlatList, Image, Text, TouchableOpacity, View } from 'react-native'
+import Icon from 'react-native-vector-icons/Ionicons'
 import { Button } from './Button'
 import { FadeInView } from './FadeInView'
 import { styles } from '../styles'
@@ -54,7 +55,7 @@ const Item = props => (
             </Text>
         </View>
         <TouchableOpacity onPress={props.cancel}>
-            <Image style={{ width: 40, height: 40 }} source={require('../icons/bin.png')} />
+            <Icon name='md-trash' size={35} color='#fff' />
         </TouchableOpacity>
     </View>
 )
