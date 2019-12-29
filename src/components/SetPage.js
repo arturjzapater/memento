@@ -57,18 +57,30 @@ const SetPage = props => (
             <View style={styles.picker}>
                 <Text style={styles.label}>Date</Text>
                 <View style={styles.pickerOption}>
-                    <TouchableOpacity style={styles.touchOption} onPress={props.dateFunc}>
+                    {/*<TouchableOpacity style={styles.touchOption} onPress={props.dateFunc}>
                         <Text style={{ ...styles.bold, ...styles.label }}>{props.memo.date}</Text>
-                    </TouchableOpacity>
+</TouchableOpacity>*/}
+                    <Button
+                        func={props.dateFunc}
+                        text={props.memo.date}
+                        textStyle={{ ...styles.bold, ...styles.label }}
+                        touchStyle={styles.touchOption}
+                    />
                 </View>
             </View>
 
             <View style={styles.picker}>
                 <Text style={styles.label}>Time</Text>
                 <View style={styles.pickerOption}>
-                    <TouchableOpacity style={styles.touchOption} onPress={props.timeFunc}>
+                    {/*<TouchableOpacity style={styles.touchOption} onPress={props.timeFunc}>
                         <Text style={{ ...styles.bold, ...styles.label }}>{props.memo.time}</Text>
-                    </TouchableOpacity>
+</TouchableOpacity>*/}
+                    <Button
+                        func={props.timeFunc}
+                        text={props.memo.time}
+                        textStyle={{ ...styles.bold, ...styles.label }}
+                        touchStyle={styles.touchOption}
+                    />
                 </View>
             </View>
         </ScrollView>
