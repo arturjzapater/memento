@@ -83,6 +83,31 @@ export default () => {
 		return error.length <= 0 ? null : error
 	}
 
+	const toolbar = {
+		view: [{
+			icon: 'md-trash',
+			label: 'Delete All',
+			action: cancelAll,
+		},{
+			icon: 'md-create',
+			label: 'New Memo',
+			action: () => dispatch({ type: 'NEW' }),
+		}],
+		set: [{
+			icon: 'md-refresh',
+			label: 'Reset Fields',
+			action: () => dispatch({ type: 'NEW' }),
+		},{
+			icon: 'md-menu',
+			label: 'View Memos',
+			action: () => dispatch({ type: 'LOAD' }),
+		},{
+			icon: 'md-checkmark-circle-outline',
+			label: 'Save Memo',
+			action: submitHandler,
+		}],
+	}
+
 	return(
 		<KeyboardAvoidingView style={styles.main} behavior='height' enabled>
 			<StatusBar hidden={true} />
@@ -116,17 +141,7 @@ export default () => {
 				newMemo={() => dispatch({ type: 'NEW' })}
 			/>}
 
-			<Toolbar
-				items={[{
-					icon: 'md-trash',
-					label: 'Delete All',
-					action: cancelAll,
-				},{
-					icon: 'md-create',
-					label: 'New Memo',
-					action: () => dispatch({ type: 'NEW' })
-				}]}
-			/>
+			<Toolbar items={toolbar[state.page]} />
 
 			{state.popup == 'calendar' && <DateTimePicker value={new Date(state.memo.date)} minimumDate={Date.now()} onChange={dateHandler} />}
 			{state.popup == 'clock' && <DateTimePicker mode='time' value={new Date(`${state.memo.date} ${state.memo.time}`)} onChange={timeHandler} />}
