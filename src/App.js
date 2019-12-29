@@ -53,6 +53,11 @@ export default () => {
 		]
 	)
 
+	const controlNumber = event => +event.nativeEvent.text < 1 && dispatch({
+		type: 'CHANGE_REPEAT_TIME',
+		repeatTime: 1
+	})
+
 	const dateHandler = (event, newDate) => dispatch({
 		type: 'CHANGE_DATE',
 		date: newDate ? newDate.toDateString() : state.memo.date
@@ -77,11 +82,6 @@ export default () => {
 		return error.length <= 0 ? null : error
 	}
 
-	const validateNumber = event => +event.nativeEvent.text < 1 && dispatch({
-		type: 'CHANGE_REPEAT_TIME',
-		repeatTime: 1
-	})
-
 	return(
 		<KeyboardAvoidingView style={styles.main} behavior='height' enabled>
 			<StatusBar hidden={true} />
@@ -103,7 +103,7 @@ export default () => {
 				dateFunc={() => dispatch({ type: 'DISPLAY_POPUP', popup: 'calendar' })}
 				timeFunc={() => dispatch({ type: 'DISPLAY_POPUP', popup: 'clock' })}
 				submitHandler={submitHandler}
-				validateNumber={validateNumber}
+				controlNumber={controlNumber}
 				reset={() => dispatch({ type: 'NEW' })}
 				cancel={() => dispatch({ type: 'LOAD' })}
 			/>}

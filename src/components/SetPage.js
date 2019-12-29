@@ -42,7 +42,7 @@ const SetPage = props => (
                 <TextInput
                     style={{ ...styles.bold, ...styles.label, flex: 1, textAlign: 'center' }}
                     onChangeText={props.repeatTimeFunc}
-                    onEndEditing={props.validateNumber}
+                    onEndEditing={props.controlNumber}
                     value={props.memo.repeatTime.toString()}
                     keyboardType='numeric'
                 />
