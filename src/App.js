@@ -124,14 +124,14 @@ export default () => {
 				memo={state.memo}
 				titleChange={newTitle => dispatch({ type: 'CHANGE_TITLE', title: newTitle })}
 				textChange={newText => dispatch({ type: 'CHANGE_TEXT', text: newText })}
-				repeatFunc={(value, index) => dispatch({ type: 'CHANGE_REPEAT', repeat: repeatOptions[index] })}
-				repeatTimeFunc={newTime => dispatch({ type: 'CHANGE_REPEAT_TIME', repeatTime: +newTime })}
-				dateFunc={() => dispatch({ type: 'DISPLAY_POPUP', popup: 'calendar' })}
-				timeFunc={() => dispatch({ type: 'DISPLAY_POPUP', popup: 'clock' })}
-				submitHandler={submitHandler}
+				repeatChange={(value, index) => dispatch({ type: 'CHANGE_REPEAT', repeat: repeatOptions[index] })}
+				repeatTimeChange={newTime => dispatch({ type: 'CHANGE_REPEAT_TIME', repeatTime: +newTime })}
+				dateChange={() => dispatch({ type: 'DISPLAY_POPUP', popup: 'calendar' })}
+				timeChange={() => dispatch({ type: 'DISPLAY_POPUP', popup: 'clock' })}
+				//submitHandler={submitHandler}
 				controlNumber={controlNumber}
-				reset={() => dispatch({ type: 'NEW' })}
-				cancel={() => dispatch({ type: 'LOAD' })}
+				//reset={() => dispatch({ type: 'NEW' })}
+				//cancel={() => dispatch({ type: 'LOAD' })}
 			/>}
 
 			{state.page == 'view' && <ViewPage

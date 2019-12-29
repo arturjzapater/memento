@@ -34,7 +34,7 @@ const SetPage = props => (
                 <Picker
                     style={{ ...styles.label, flex: 1, marginLeft: 40 }}
                     selectedValue={props.memo.repeat.value}
-                    onValueChange={props.repeatFunc}
+                    onValueChange={props.repeatChange}
                 >
                     {repeatOptions.map(x => <Picker.Item label={x.key} value={x.value} key={`repeat-${x.value}`} />)}
                 </Picker>
@@ -43,7 +43,7 @@ const SetPage = props => (
             {props.memo.repeat.value === 'time' && <Setting label='Every'>
                 <TextInput
                     style={{ ...styles.bold, ...styles.label, flex: 1, textAlign: 'center' }}
-                    onChangeText={props.repeatTimeFunc}
+                    onChangeText={props.repeatTimeChange}
                     onEndEditing={props.controlNumber}
                     value={props.memo.repeatTime.toString()}
                     keyboardType='numeric'
@@ -53,7 +53,7 @@ const SetPage = props => (
 
             <Setting label='Date'>
                 <Button
-                    func={props.dateFunc}
+                    func={props.dateChange}
                     text={props.memo.date}
                     textStyle={{ ...styles.bold, ...styles.label }}
                     touchStyle={styles.touchOption}
@@ -62,7 +62,7 @@ const SetPage = props => (
 
             <Setting label='Time'>
                 <Button
-                    func={props.timeFunc}
+                    func={props.timeChange}
                     text={props.memo.time}
                     textStyle={{ ...styles.bold, ...styles.label }}
                     touchStyle={styles.touchOption}
