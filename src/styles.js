@@ -1,13 +1,10 @@
 import { StyleSheet } from 'react-native'
 
 export const colours = {
-    activeButton: 'hsl(270, 70%, 60%)',
     darkMain: 'hsl(270, 44%, 10%)',
     darkDetail: 'hsl(270, 35%, 20%)',
-    lightEmphasis: 'hsl(24, 65%, 99%)',
     lightMain: 'hsl(320, 15%, 90%)',
     submit: 'hsl(30, 75%, 60%)',
-    danger: 'hsl(338, 85%, 60%)',
 }
 
 export const styles = StyleSheet.create({
@@ -19,10 +16,6 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-between',
         width: 310,
-    },
-    group: {
-        alignSelf: 'stretch',
-        justifyContent: 'center',
     },
     item: {
         alignItems: 'center',
@@ -120,11 +113,6 @@ export const styles = StyleSheet.create({
         paddingVertical: 15,
         paddingHorizontal: 30,
     },
-    timeInput: {
-        backgroundColor: colours.darkDetail,
-        paddingVertical: 15,
-        paddingHorizontal: 30,
-    },
     toolbar: {
         alignSelf: 'stretch',
         flexDirection: 'row',
@@ -144,40 +132,10 @@ export const styles = StyleSheet.create({
         color: colours.lightMain,
         fontSize: 14,
     },
-    touch: {
-        alignItems: 'center',
-        alignSelf: 'stretch',
-        flexDirection: 'row',
-        justifyContent: 'center',
-        backgroundColor: colours.darkDetail,
-        borderRadius: 30,
-        margin: 4,
-        padding: 10,
-    },
-    touchAction: {
-        backgroundColor: colours.submit,
-    },
-    touchDanger: {
-        backgroundColor: colours.danger,
-    },
     touchOption: {
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
         padding: 10,
-    },
-    touchLeft: {
-        borderTopRightRadius: 0,
-        borderBottomRightRadius: 0,
-    },
-    touchRight: {
-        borderTopLeftRadius: 0,
-        borderBottomLeftRadius: 0,
-    },
-    touchRow: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        margin: 4,
     },
 })
