@@ -1,7 +1,6 @@
 import React from 'react'
 import { FlatList, Text, TouchableOpacity, View } from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons'
-import { Button } from './Button'
 import { FadeInView } from './FadeInView'
 import { colours, styles } from '../styles'
 import { getRepeatText } from '../modules/repeat'
@@ -17,18 +16,6 @@ const ViewPage = props => (
             keyExtractor={item => `item-${item.id}`}
             ListEmptyComponent={<Empty />}
         />
-        {/*<Button
-            textStyle={{ ...styles.bold, ...styles.label }}
-            touchStyle={{ ...styles.touch, ...styles.touchAction }}
-            func={props.newMemo}
-            text='Create Memo'
-        />
-        <Button
-            textStyle={{ ...styles.bold, ...styles.label }}
-            touchStyle={{ ...styles.touch, ...styles.touchDanger }}
-            func={props.cancelAll}
-            text='Delete All Memos'
-        />*/}
     </FadeInView>
 )
 

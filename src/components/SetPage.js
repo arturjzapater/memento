@@ -1,5 +1,5 @@
 import React from 'react'
-import { Picker, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { Picker, ScrollView, Text, TextInput, View } from 'react-native'
 import { Button } from './Button'
 import { FadeInView } from './FadeInView'
 import { styles } from '../styles'
@@ -18,6 +18,7 @@ const SetPage = props => (
                 value={props.memo.title}
                 maxLength={40}
             />
+
             <TextInput
                 style={{ ...styles.label, ...styles.textInput}}
                 onChangeText={props.textChange}
@@ -26,7 +27,7 @@ const SetPage = props => (
                 value={props.memo.text}
                 maxLength={240}
                 multiline={true}
-                numberOfLines={3}
+                numberOfLines={4}
             />
 
             <Setting label='Repeat'>
@@ -38,6 +39,7 @@ const SetPage = props => (
                     {repeatOptions.map(x => <Picker.Item label={x.key} value={x.value} key={`repeat-${x.value}`} />)}
                 </Picker>
             </Setting>
+
             {props.memo.repeat.value === 'time' && <Setting label='Every'>
                 <TextInput
                     style={{ ...styles.bold, ...styles.label, flex: 1, textAlign: 'center' }}
@@ -67,26 +69,6 @@ const SetPage = props => (
                 />
             </Setting>
         </ScrollView>
-        {/*<View style={styles.group}>
-            <Button
-                textStyle={{ ...styles.bold, ...styles.label }}
-                touchStyle={{ ...styles.touch, ...styles.touchAction }}
-                func={props.submitHandler}
-                text='Set Memo'
-            />
-            <Button
-                textStyle={{ ...styles.bold, ...styles.label }}
-                touchStyle={{ ...styles.touch, ...styles.touchDanger }}
-                func={props.reset}
-                text='Reset Fields'
-            />
-            <Button
-                textStyle={{ ...styles.bold, ...styles.label }}
-                touchStyle={styles.touch}
-                func={props.cancel}
-                text='Go Back'
-            />
-        </View>*/}
     </FadeInView>
 )
 
