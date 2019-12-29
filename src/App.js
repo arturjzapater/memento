@@ -11,6 +11,7 @@ import reducer from './StateService'
 import { repeatOptions } from './modules/repeat'
 import { formatTime } from './modules/time'
 import sideEffects from './modules/sideEffects'
+import { removeDeleted } from './NotifService'
 
 const initialState = {
 	status: 'loading',
@@ -118,6 +119,7 @@ export default () => {
 				close={() => dispatch({ type: 'LOAD', toDelete: null })}
 				toDelete={state.toDelete}
 				undo={() => dispatch({ type: 'RESTORE_MEMO' })}
+				onUnmount={removeDeleted}
 			/>}
 			
 			{state.page == 'set' && <SetPage

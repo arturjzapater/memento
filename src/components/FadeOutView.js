@@ -7,14 +7,15 @@ const FadeOutView = props => {
     const [ fadeOut ] = useState(new Animated.Value(1))
 
     useEffect(() => {
-    Animated.timing(
-        fadeOut,
-        {
-            toValue: 0.2,
-            duration: 31000,
-            easing: Easing.exp,
-        }
-    ).start(() => props.onFadeOut())
+        Animated.timing(
+            fadeOut,
+            {
+                toValue: 0.2,
+                duration: 31000,
+                easing: Easing.exp,
+            }
+        ).start(() => props.onFadeOut())
+        return props.onUnmount
     }, [])
 
     return(

@@ -1,4 +1,4 @@
-import { cancelAllNotifs, cancelNotif, removeDeleted, scheduleNotif } from '../NotifService'
+import { cancelAllNotifs, cancelNotif, scheduleNotif } from '../NotifService'
 import { findAndRemoveold, restore } from '../StoreService'
 
 export default dispatch => ({
@@ -33,8 +33,4 @@ export default dispatch => ({
 			message: `${state.toDelete.title} is back!`,
 			toDelete: null
 		})),
-	success: state => state.message.includes('deleted') && setTimeout(() => {
-			removeDeleted()
-			if (state.message != '') dispatch({ type: 'LOAD', toDelete: null })
-		}, 30000),
 })
