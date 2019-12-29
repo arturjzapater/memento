@@ -17,7 +17,7 @@ const ViewPage = props => (
             keyExtractor={item => `item-${item.id}`}
             ListEmptyComponent={<Empty />}
         />
-        <Button
+        {/*<Button
             textStyle={{ ...styles.bold, ...styles.label }}
             touchStyle={{ ...styles.touch, ...styles.touchAction }}
             func={props.newMemo}
@@ -28,7 +28,7 @@ const ViewPage = props => (
             touchStyle={{ ...styles.touch, ...styles.touchDanger }}
             func={props.cancelAll}
             text='Delete All Memos'
-        />
+        />*/}
     </FadeInView>
 )
 

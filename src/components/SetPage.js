@@ -67,7 +67,7 @@ const SetPage = props => (
                 />
             </Setting>
         </ScrollView>
-        <View style={styles.group}>
+        {/*<View style={styles.group}>
             <Button
                 textStyle={{ ...styles.bold, ...styles.label }}
                 touchStyle={{ ...styles.touch, ...styles.touchAction }}
@@ -86,7 +86,7 @@ const SetPage = props => (
                 func={props.cancel}
                 text='Go Back'
             />
-        </View>
+        </View>*/}
     </FadeInView>
 )
 
