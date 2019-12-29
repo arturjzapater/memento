@@ -73,8 +73,14 @@ export default () => {
 		const error = []
 		if (state.memo.title == '') error.push('You must write a title')
 		if (new Date(`${state.memo.date} ${state.memo.time}`) < new Date()) error.push('You must set a date in the future')
+		if (state.memo.repeat.value === 'time' && state.memo.repeatTime == 0) error.push('You must set a repeat time above 0 hours')
 		return error.length <= 0 ? null : error
 	}
+
+	const validateNumber = event => +event.nativeEvent.text < 1 && dispatch({
+		type: 'CHANGE_REPEAT_TIME',
+		repeatTime: 1
+	})
 
 	return(
 		<KeyboardAvoidingView style={styles.main} behavior='height' enabled>
@@ -97,6 +103,7 @@ export default () => {
 				dateFunc={() => dispatch({ type: 'DISPLAY_POPUP', popup: 'calendar' })}
 				timeFunc={() => dispatch({ type: 'DISPLAY_POPUP', popup: 'clock' })}
 				submitHandler={submitHandler}
+				validateNumber={validateNumber}
 				reset={() => dispatch({ type: 'NEW' })}
 				cancel={() => dispatch({ type: 'LOAD' })}
 			/>}
