@@ -10,11 +10,11 @@ const FadeOutView = props => {
     Animated.timing(
         fadeOut,
         {
-            toValue: 0,
+            toValue: 0.2,
             duration: 31000,
             easing: Easing.exp,
         }
-    ).start()
+    ).start(() => props.onFadeOut())
     }, [])
 
     return(
