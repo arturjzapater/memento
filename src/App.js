@@ -4,6 +4,7 @@ import DateTimePicker from '@react-native-community/datetimepicker'
 import { Header } from './components/Header'
 import { MessageBox } from './components/MessageBox'
 import { SetPage } from './components/SetPage'
+import { Toolbar } from './components/Toolbar'
 import { ViewPage } from './components/ViewPage'
 import { styles } from './styles'
 import reducer from './StateService'
@@ -114,6 +115,18 @@ export default () => {
 				list={state.data}
 				newMemo={() => dispatch({ type: 'NEW' })}
 			/>}
+
+			<Toolbar
+				items={[{
+					icon: 'md-trash',
+					label: 'Delete All',
+					action: cancelAll,
+				},{
+					icon: 'md-create',
+					label: 'New Memo',
+					action: () => dispatch({ type: 'NEW' })
+				}]}
+			/>
 
 			{state.popup == 'calendar' && <DateTimePicker value={new Date(state.memo.date)} minimumDate={Date.now()} onChange={dateHandler} />}
 			{state.popup == 'clock' && <DateTimePicker mode='time' value={new Date(`${state.memo.date} ${state.memo.time}`)} onChange={timeHandler} />}

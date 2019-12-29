@@ -55,7 +55,7 @@ const Item = props => (
             </Text>
         </View>
         <TouchableOpacity onPress={props.cancel}>
-            <Icon name='md-trash' size={35} color={colours.lightMain} />
+            <Icon name='md-trash' size={30} color={colours.lightMain} />
         </TouchableOpacity>
     </View>
 )

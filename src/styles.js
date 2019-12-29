@@ -63,7 +63,6 @@ export const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'space-between',
-        paddingBottom: 20,
     },
     menu: {
         flexDirection: 'row',
@@ -125,6 +124,25 @@ export const styles = StyleSheet.create({
         backgroundColor: colours.darkDetail,
         paddingVertical: 15,
         paddingHorizontal: 30,
+    },
+    toolbar: {
+        alignSelf: 'stretch',
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        backgroundColor: colours.darkDetail,
+        elevation: 10,
+        marginTop: 8,
+    },
+    toolItem: {
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 5,
+        width: 90,
+    },
+    toolLabel: {
+        color: colours.lightMain,
+        fontSize: 14,
     },
     touch: {
         alignItems: 'center',
