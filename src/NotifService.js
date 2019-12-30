@@ -1,8 +1,9 @@
 import { Alert } from 'react-native'
 import PushNotification from 'react-native-push-notification'
-import { find, remove, removeAll, update } from './StoreService'
+import { clearToDelete, find, remove, removeAll, update } from './StoreService'
 
 PushNotification.configure({
+  smallIcon: 'ic_notification',
   onNotification: notification => Alert.alert(
       notification.title,
       notification.message,
@@ -29,34 +30,39 @@ export const cancelAllNotifs = () => {
 export const cancelNotif = id => {
   PushNotification.cancelLocalNotifications({ id: id.toString() })
   return remove(id)
-    .catch(console.log)
 }
 
-export const scheduleNotif = (title, text, date, repeatType, repeatTime) => {
-  getLastId()
-    .then(id => {
-      const newId = id + 1
-      const newTime = repeatType == 'time' ? repeatTime * 3600000 : undefined
-      pushNotif(newId, title, text, date, repeatType, newTime)
-      update({ id: newId, title, date, repeatType, repeatTime : newTime })
-      return({ id: newId, title, date, repeatType, repeatTime : newTime })
+export const removeDeleted = () => find('@to-delete')
+  .then(data => data.forEach(x => PushNotification.cancelLocalNotifications({ id: x.id.toString() })))
+  .then(() => clearToDelete())
+
+export const scheduleNotif = (info) => getLastId()
+    .then(lastId => {
+      const notification = {
+        ...info,
+        id: lastId + 1,
+        repeatTime: info.repeatType == 'time' ? info.repeatTime * 3600000 : undefined
+      }
+      pushNotif(notification)
+      return(notification)
     })
-    .catch(console.log)
-}
+    .then(data => update(data))
 
 const getLastId = () => find()
   .then(data => data.reduce((a, b) => b.id > a ? b.id : a, 0))
 
-const pushNotif = (id, title, text, date, repeatType, repeatTime) =>
+const pushNotif = ({ id, title, text, date, repeatType, repeatTime }) =>
   PushNotification.localNotificationSchedule({
     date: new Date(date),
     id: id.toString(),
     ticker: 'Memento Notification Ticker',
     autoCancel: true,
+    largeIcon: 'ic_launcher',
+    smallIcon: 'ic_notification',
     subText: 'Remember, remember!',
     vibrate: true,
     vibration: 1000,
-    ongoing: false,
+    ongoing: true,
     title: title,
     message: text,
     playSound: true,
@@ -66,4 +72,4 @@ const pushNotif = (id, title, text, date, repeatType, repeatTime) =>
   })
 
 const snoozeNotif = (title, text) => getLastId()
-  .then(id => pushNotif(id + 1, title, text, new Date(Date.now() + 600000)))
+  .then(id => pushNotif({ id: id + 1, title, text, date: new Date(Date.now() + 600000) }))
