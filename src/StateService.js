@@ -13,6 +13,9 @@ const actions = {
         status: 'loading',
         toDelete: typeof action.toDelete != 'undefined' ? action.toDelete : state.toDelete,
     }),
+    LOAD2: (state, action) => state.page == 'view'
+        ? actions.LOAD(state, action)
+        : state,
     NEW: (state, action) => ({
         ...state,
         memo: {

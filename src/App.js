@@ -120,6 +120,7 @@ export default () => {
 				toDelete={state.toDelete}
 				undo={() => dispatch({ type: 'RESTORE_MEMO' })}
 				onUnmount={removeDeleted}
+				onFadeOut={() => dispatch({ type: 'LOAD2', toDelete: null })}
 			/>}
 			
 			{state.page == 'set' && <SetPage
