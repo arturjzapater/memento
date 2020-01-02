@@ -7,7 +7,7 @@ import { colours, styles } from '../styles'
 export { MessageBox }
 
 const MessageBox = props => (
-  <FadeOutView style={styles.msgBox} onFadeOut={props.close} /*onUnmount={props.onUnmount}*/>
+  <FadeOutView style={styles.msgBox} onFadeOut={props.close}>
     <Text style={styles.message}>{props.text}</Text>
     {props.toDelete != null && typeof props.toDelete != 'string' && <Undo undo={props.undo} />}
     <TouchableOpacity onPress={props.close}>

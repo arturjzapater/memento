@@ -26,19 +26,6 @@ export default dispatch => ({
 			type: 'LOAD',
 			message: `${state.toDelete.title} succesfully deleted.`
 		})),
-	/*
-	state.toDelete == 'all'
-		? cancelAllNotifs()
-			.then(() => dispatch({
-				type: 'LOAD',
-				message: 'All memos succesfully deleted.',
-				toDelete: null
-			}))
-		: cancelNotif(state.toDelete.id)
-			.then(() => dispatch({
-				type: 'LOAD',
-				message: `${state.toDelete.title} succesfully deleted.`
-			})),*/
 	restoring: state => restore(state.toDelete)
 		.then(() => dispatch({
 			type: 'LOAD',

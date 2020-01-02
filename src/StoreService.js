@@ -1,11 +1,9 @@
 import AsyncStorage from '@react-native-community/async-storage'
 
-export { clearToDelete, find, findAndRemoveold, remove, removeAll, removeToDelete, restore, update }
+export { find, findAndRemoveold, remove, removeAll, removeToDelete, restore, update }
 
 const KEY = '@notifications'
 const DEL_KEY = '@to-delete'
-
-const clearToDelete = () => AsyncStorage.removeItem(DEL_KEY)
 
 const find = (key=KEY) => AsyncStorage.getItem(key)
     .then(data => data != null ? JSON.parse(data).items : [])
