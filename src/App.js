@@ -119,7 +119,7 @@ export default () => {
 				close={() => dispatch({ type: 'CLOSE_MSG', toDelete: null })}
 				toDelete={state.toDelete}
 				undo={() => dispatch({ type: 'RESTORE_MEMO' })}
-				onUnmount={removeDeleted}
+				//onUnmount={removeDeleted}
 			/>}
 			
 			{state.page == 'set' && <SetPage
