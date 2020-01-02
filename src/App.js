@@ -116,11 +116,10 @@ export default () => {
 
 			{state.message != '' && <MessageBox
 				text={state.message}
-				close={() => dispatch({ type: 'LOAD', toDelete: null })}
+				close={() => dispatch({ type: 'CLOSE_MSG', toDelete: null })}
 				toDelete={state.toDelete}
 				undo={() => dispatch({ type: 'RESTORE_MEMO' })}
 				onUnmount={removeDeleted}
-				onFadeOut={() => dispatch({ type: 'CLOSE_MSG', toDelete: null })}
 			/>}
 			
 			{state.page == 'set' && <SetPage
