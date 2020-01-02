@@ -17,6 +17,14 @@ export const styles = StyleSheet.create({
         justifyContent: 'space-between',
         width: 310,
     },
+    empty: {
+        flex: 1,
+        justifyContent: 'center'
+    },
+    emptyText: {
+        fontSize: 21,
+        textAlign: 'center',
+    },
     item: {
         alignItems: 'center',
         alignSelf: 'stretch',

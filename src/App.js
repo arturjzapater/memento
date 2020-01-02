@@ -34,8 +34,6 @@ const initialState = {
 export default () => {
 	const [ state, dispatch ] = useReducer(reducer, initialState)
 
-	console.log('To Delete:', state.deletionTimeout)
-
 	const sideEffectHandler = sideEffects(dispatch)
 	useEffect(() => {
 		if (Object.keys(sideEffectHandler).includes(state.status)) sideEffectHandler[state.status](state)
@@ -137,6 +135,7 @@ export default () => {
 			{state.page == 'view' && <ViewPage
 				delete={cancel}
 				list={state.data}
+				status={state.status}
 			/>}
 
 			<Toolbar items={toolbar[state.page]} />

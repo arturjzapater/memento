@@ -9,23 +9,25 @@ export { ViewPage }
 
 const ViewPage = props => (
     <FadeInView style={styles.container}>
-        <FlatList
+        {props.status == 'loading' && <Text style={styles.label}>Loading...</Text>}
+        {props.status == 'success' && props.list.length > 0
+        ? <FlatList
             style={{ alignSelf: 'stretch' }}
             data={props.list}
             renderItem={({ item }) => <Item delete={() => props.delete(item)} title={item.title} date={item.date} repeatType={item.repeatType} repeatTime={item.repeatTime} />}
             keyExtractor={item => `item-${item.id}`}
-            ListEmptyComponent={<Empty />}
         />
+        : <Empty />}
     </FadeInView>
 )
 
 const Empty = () => (
-    <View>
-        <Text style={styles.label}>
+    <View style={styles.empty}>
+        <Text style={{ ...styles.label, ...styles.emptyText }}>
             It looks like you have no memos.
         </Text>
-        <Text style={styles.label}>
-            Create new memos by tapping on the 'Create Memo' button!
+        <Text style={{ ...styles.label, ...styles.emptyText }}>
+            Create new memos by tapping on the 'New Memo' button!
         </Text>
     </View>
 )
