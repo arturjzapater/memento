@@ -62,13 +62,14 @@ const pushNotif = ({ id, title, text, date, repeatType, repeatTime }) =>
 		subText: 'Remember, remember!',
 		vibrate: true,
 		vibration: 1000,
-		ongoing: true,
+		ongoing: false,
 		title: title,
 		message: text,
 		playSound: true,
 		soundName: 'default',
 		repeatType: repeatType,
 		repeatTime: repeatTime,
+		actions: '["A", "B"]', //To be modified
 	})
 
 const snoozeNotif = (title, text) => getLastId()
