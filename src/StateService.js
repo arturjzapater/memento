@@ -99,16 +99,13 @@ const actions = {
         ...state,
         status: 'deleting_one',
         toDelete: action.toDelete,
-        deletionList: [
-            ...state.deletionList,
-            setTimeout(() => removeDeleted(action.toDelete), 30000)
-        ]
+        deletionTimeout: setTimeout(() => removeDeleted(action.toDelete), 30000),
     }),
     RESTORE_MEMO: (state, action) => {
-        clearTimeout(state.deletionList[state.deletionList.length - 1])
+        clearTimeout(state.deletionTimeout)
         return ({
             ...state,
-            deletionList: state.deletionList.slice(0, -1),
+            deletionTimeout: undefined,
             status: 'restoring',
         })
     },

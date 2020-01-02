@@ -27,14 +27,14 @@ const initialState = {
 	page: 'view',
 	popup: '',
 	toDelete: null,
-	deletionList: [],
+	deletionTimeout: undefined,
 	error: null,
 }
 
 export default () => {
 	const [ state, dispatch ] = useReducer(reducer, initialState)
 
-	console.log('To Delete:', state.deletionList)
+	console.log('To Delete:', state.deletionTimeout)
 
 	const sideEffectHandler = sideEffects(dispatch)
 	useEffect(() => {
