@@ -11,6 +11,7 @@ const actions = {
     LOAD: (state, action) => ({
         ...state,
         message: action.message || '',
+        page: 'view',
         status: 'loading',
         toDelete: typeof action.toDelete != 'undefined' ? action.toDelete : state.toDelete,
     }),

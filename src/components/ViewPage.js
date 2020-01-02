@@ -9,15 +9,16 @@ export { ViewPage }
 
 const ViewPage = props => (
     <FadeInView style={styles.container}>
-        {props.status == 'loading' && <Text style={styles.label}>Loading...</Text>}
-        {props.status == 'success' && props.list.length > 0
-        ? <FlatList
-            style={{ alignSelf: 'stretch' }}
-            data={props.list}
-            renderItem={({ item }) => <Item delete={() => props.delete(item)} title={item.title} date={item.date} repeatType={item.repeatType} repeatTime={item.repeatTime} />}
-            keyExtractor={item => `item-${item.id}`}
-        />
-        : <Empty />}
+        {props.status == 'loading'
+            ? <Text style={styles.label}>Loading...</Text>
+            : props.list.length > 0
+            ? <FlatList
+                style={{ alignSelf: 'stretch' }}
+                data={props.list}
+                renderItem={({ item }) => <Item delete={() => props.delete(item)} title={item.title} date={item.date} repeatType={item.repeatType} repeatTime={item.repeatTime} />}
+                keyExtractor={item => `item-${item.id}`}
+            />
+            : <Empty />}
     </FadeInView>
 )
 
