@@ -1,6 +1,6 @@
 import { Alert } from 'react-native'
 import PushNotification from 'react-native-push-notification'
-import { clearToDelete, find, remove, removeAll, update } from './StoreService'
+import { clearToDelete, find, remove, removeAll, removeToDelete, update } from './StoreService'
 
 PushNotification.configure({
 	smallIcon: 'ic_notification',
@@ -31,10 +31,14 @@ export const cancelNotif = id => {
 	PushNotification.cancelLocalNotifications({ id: id.toString() })
 	return remove(id)
 }
-
+/*
 export const removeDeleted = () => find('@to-delete')
 	.then(data => data.forEach(x => PushNotification.cancelLocalNotifications({ id: x.id.toString() })))
-	.then(() => clearToDelete())
+	.then(() => clearToDelete())*/
+export const removeDeleted = item => {
+	PushNotification.cancelLocalNotifications({ id: item.id.toString() })
+	return removeToDelete(item)
+}
 
 export const scheduleNotif = (info) => getLastId()
 	.then(lastId => {

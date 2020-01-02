@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-community/async-storage'
 
-export { clearToDelete, find, findAndRemoveold, remove, removeAll, restore, update }
+export { clearToDelete, find, findAndRemoveold, remove, removeAll, removeToDelete, restore, update }
 
 const KEY = '@notifications'
 const DEL_KEY = '@to-delete'
