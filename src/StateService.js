@@ -89,11 +89,17 @@ const actions = {
         popup: action.popup,
     }),
     CLOSE_MSG: (state, action) => state.page == 'view'
-        ? actions.LOAD(state, action)
-        : state,
+        ? actions.LOAD({
+            ...state,
+            deletionTimeout: undefined,
+        }, action)
+        : {
+            ...state,
+            deletionTimeout: undefined,
+        },
     DELETE_ALL: (state, action) => ({
         ...state,
-        status: 'deleting_all'
+        status: 'deleting_all',
     }),
     DELETE_ONE: (state, action) => ({
         ...state,
