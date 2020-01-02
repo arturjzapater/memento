@@ -39,6 +39,12 @@ const remove = id => setToDelete(id)
 
 const removeAll = () => AsyncStorage.removeItem(KEY)
 
+const removeToDelete = item => find(DEL_KEY)
+    .then(items => items.filter(x => x.id != item.id))
+    .then(items => ({ items }))
+    .then(JSON.stringify)
+    .then(data => AsyncStorage.setItem(DEL_KEY, data))
+
 const restore = item => find(DEL_KEY)
     .then(items => items.filter(x => x.id != item.id))
     .then(items => ({ items }))
