@@ -28,18 +28,21 @@ const initialState = {
 	page: 'view',
 	popup: '',
 	toDelete: null,
+	deletionList: [],
 	error: null,
 }
 
 export default () => {
 	const [ state, dispatch ] = useReducer(reducer, initialState)
 
+	console.log('To Delete:', state.deletionList)
+
 	const sideEffectHandler = sideEffects(dispatch)
 	useEffect(() => {
 		if (Object.keys(sideEffectHandler).includes(state.status)) sideEffectHandler[state.status](state)
 	}, [ state.status ])
 
-	const cancel = memo => dispatch({ type: 'DELETE_MEMO', toDelete: memo })
+	const cancel = memo => dispatch({ type: 'DELETE_ONE', toDelete: memo })
 		
 	const cancelAll = () => Alert.alert(
 		'Are you sure?',
@@ -47,7 +50,7 @@ export default () => {
 		[
 			{
 				text: 'Yes, proceed',
-				onPress: () => dispatch({ type: 'DELETE_MEMO', toDelete: 'all' })
+				onPress: () => dispatch({ type: 'DELETE_ALL' })
 			},
 			{
 				text: 'No, I\'ll keep them',

@@ -28,7 +28,7 @@ export const cancelAllNotifs = () => {
 }
 
 export const cancelNotif = id => {
-	PushNotification.cancelLocalNotifications({ id: id.toString() })
+	//PushNotification.cancelLocalNotifications({ id: id.toString() })
 	return remove(id)
 }
 /*

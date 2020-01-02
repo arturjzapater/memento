@@ -15,7 +15,19 @@ export default dispatch => ({
 			type: 'LOAD',
 			message: `I will remind you about ${state.memo.title}!`
 		})),
-	deleting: state => state.toDelete == 'all'
+	deleting_all: () => cancelAllNotifs()
+		.then(() => dispatch({
+			type: 'LOAD',
+			message: 'All memos succesfully deleted.',
+			toDelete: null
+		})),
+	deleting_one: state => cancelNotif(state.toDelete.id)
+		.then(() => dispatch({
+			type: 'LOAD',
+			message: `${state.toDelete.title} succesfully deleted.`
+		})),
+	/*
+	state.toDelete == 'all'
 		? cancelAllNotifs()
 			.then(() => dispatch({
 				type: 'LOAD',
@@ -26,7 +38,7 @@ export default dispatch => ({
 			.then(() => dispatch({
 				type: 'LOAD',
 				message: `${state.toDelete.title} succesfully deleted.`
-			})),
+			})),*/
 	restoring: state => restore(state.toDelete)
 		.then(() => dispatch({
 			type: 'LOAD',
