@@ -1,5 +1,5 @@
 import React, { useEffect, useReducer } from 'react'
-import { Alert, KeyboardAvoidingView, StatusBar } from 'react-native'
+import { Alert, AppState, KeyboardAvoidingView, StatusBar } from 'react-native'
 import DateTimePicker from '@react-native-community/datetimepicker'
 import { Header } from './components/Header'
 import { MessageBox } from './components/MessageBox'
@@ -38,6 +38,10 @@ export default () => {
 	useEffect(() => {
 		if (Object.keys(sideEffectHandler).includes(state.status)) sideEffectHandler[state.status](state)
 	}, [ state.status ])
+	useEffect(() => {
+		AppState.addEventListener('change', handleAppStateFocus)
+		return () => AppState.removeEventListener('change', handleAppStateFocus)
+	}, [])
 
 	const cancel = memo => dispatch({ type: 'DELETE_ONE', toDelete: memo })
 		
@@ -64,6 +68,8 @@ export default () => {
 		type: 'CHANGE_DATE',
 		date: newDate ? newDate.toDateString() : state.memo.date
 	})
+
+	const handleAppStateFocus = appState => appState === 'active' && dispatch({ type: 'LOAD' })
 
 	const submitHandler = () => {
 		const error = validateInput()
