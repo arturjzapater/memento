@@ -14,8 +14,7 @@ const FadeOutView = props => {
                 duration: 31000,
                 easing: Easing.exp,
             }
-        ).start(() => props.onFadeOut())
-        return props.onUnmount
+        ).start(props.onFadeOut)
     }, [])
 
     return(

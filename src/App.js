@@ -1,5 +1,5 @@
 import React, { useEffect, useReducer } from 'react'
-import { Alert, KeyboardAvoidingView, StatusBar } from 'react-native'
+import { Alert, AppState, KeyboardAvoidingView, StatusBar } from 'react-native'
 import DateTimePicker from '@react-native-community/datetimepicker'
 import { Header } from './components/Header'
 import { MessageBox } from './components/MessageBox'
@@ -11,7 +11,6 @@ import reducer from './StateService'
 import { repeatOptions } from './modules/repeat'
 import { formatTime } from './modules/time'
 import sideEffects from './modules/sideEffects'
-import { removeDeleted } from './NotifService'
 
 const initialState = {
 	status: 'loading',
@@ -28,6 +27,7 @@ const initialState = {
 	page: 'view',
 	popup: '',
 	toDelete: null,
+	deletionTimeout: undefined,
 	error: null,
 }
 
@@ -38,8 +38,12 @@ export default () => {
 	useEffect(() => {
 		if (Object.keys(sideEffectHandler).includes(state.status)) sideEffectHandler[state.status](state)
 	}, [ state.status ])
+	useEffect(() => {
+		AppState.addEventListener('change', handleAppStateFocus)
+		return () => AppState.removeEventListener('change', handleAppStateFocus)
+	}, [])
 
-	const cancel = memo => dispatch({ type: 'DELETE_MEMO', toDelete: memo })
+	const cancel = memo => dispatch({ type: 'DELETE_ONE', toDelete: memo })
 		
 	const cancelAll = () => Alert.alert(
 		'Are you sure?',
@@ -47,7 +51,7 @@ export default () => {
 		[
 			{
 				text: 'Yes, proceed',
-				onPress: () => dispatch({ type: 'DELETE_MEMO', toDelete: 'all' })
+				onPress: () => dispatch({ type: 'DELETE_ALL' })
 			},
 			{
 				text: 'No, I\'ll keep them',
@@ -64,6 +68,8 @@ export default () => {
 		type: 'CHANGE_DATE',
 		date: newDate ? newDate.toDateString() : state.memo.date
 	})
+
+	const handleAppStateFocus = appState => appState === 'active' && dispatch({ type: 'LOAD' })
 
 	const submitHandler = () => {
 		const error = validateInput()
@@ -116,10 +122,9 @@ export default () => {
 
 			{state.message != '' && <MessageBox
 				text={state.message}
-				close={() => dispatch({ type: 'LOAD', toDelete: null })}
+				close={() => dispatch({ type: 'CLOSE_MSG', toDelete: null })}
 				toDelete={state.toDelete}
 				undo={() => dispatch({ type: 'RESTORE_MEMO' })}
-				onUnmount={removeDeleted}
 			/>}
 			
 			{state.page == 'set' && <SetPage
@@ -136,6 +141,7 @@ export default () => {
 			{state.page == 'view' && <ViewPage
 				delete={cancel}
 				list={state.data}
+				status={state.status}
 			/>}
 
 			<Toolbar items={toolbar[state.page]} />

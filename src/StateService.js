@@ -1,5 +1,6 @@
 import { repeatOptions } from './modules/repeat'
 import { formatTime } from './modules/time'
+import { removeDeleted } from './NotifService'
 
 export default (state, action) => {
     const handler = actions[action.type] || actions.default
@@ -10,6 +11,7 @@ const actions = {
     LOAD: (state, action) => ({
         ...state,
         message: action.message || '',
+        page: 'view',
         status: 'loading',
         toDelete: typeof action.toDelete != 'undefined' ? action.toDelete : state.toDelete,
     }),
@@ -87,15 +89,33 @@ const actions = {
         ...state,
         popup: action.popup,
     }),
-    DELETE_MEMO: (state, action) => ({
+    CLOSE_MSG: (state, action) => state.page == 'view'
+        ? actions.LOAD({
+            ...state,
+            deletionTimeout: undefined,
+        }, action)
+        : {
+            ...state,
+            deletionTimeout: undefined,
+        },
+    DELETE_ALL: (state, action) => ({
         ...state,
-        status: 'deleting',
+        status: 'deleting_all',
+    }),
+    DELETE_ONE: (state, action) => ({
+        ...state,
+        status: 'deleting_one',
         toDelete: action.toDelete,
+        deletionTimeout: setTimeout(() => removeDeleted(action.toDelete), 30000),
     }),
-    RESTORE_MEMO: (state, action) => ({
-        ...state,
-        status: 'restoring',
-    }),
+    RESTORE_MEMO: (state, action) => {
+        clearTimeout(state.deletionTimeout)
+        return ({
+            ...state,
+            deletionTimeout: undefined,
+            status: 'restoring',
+        })
+    },
     SCHEDULE_MEMO: (state, action) => ({
         ...state,
         status: 'scheduling',
