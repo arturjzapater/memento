@@ -4,19 +4,11 @@ import { find, remove, removeAll, removeToDelete, update } from './StoreService'
 
 PushNotification.configure({
 	smallIcon: 'ic_notification',
-	onNotification: notification => Alert.alert(
-		notification.title,
-		notification.message,
-		[
-			{
-				text: 'Snooze',
-				onPress: () => snoozeNotif(notification.title, notification.message),
-			},
-			{
-				text: 'Dismiss',
-			},
-		]
-	),
+	onNotification: notification => {
+		console.log(JSON.stringify(notification, null, 2))
+		console.log('Action', notification.action)
+		if (notification.action === 'Snooze') snoozeNotif(notification.title, notification.message)
+	},
 	senderID: '',
 	popInitialNotification: true,
 	requestPermissions: true,
@@ -67,8 +59,8 @@ const pushNotif = ({ id, title, text, date, repeatType, repeatTime }) =>
 		soundName: 'default',
 		repeatType: repeatType,
 		repeatTime: repeatTime,
-		actions: '["A", "B"]', //To be modified
+		actions: '["Snooze"]',
 	})
 
 const snoozeNotif = (title, text) => getLastId()
-	.then(id => pushNotif({ id: id + 1, title, text, date: new Date(Date.now() + 600000) }))
+	.then(id => pushNotif({ id: id + 1, title, text, date: new Date(Date.now() + 6e5) }))

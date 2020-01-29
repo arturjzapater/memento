@@ -85,7 +85,7 @@ export default () => {
 	const validateInput = () => {
 		const error = []
 		if (state.memo.title == '') error.push('You must write a title')
-		if (new Date(`${state.memo.date} ${state.memo.time}`) < new Date()) error.push('You must set a date in the future')
+		//if (new Date(`${state.memo.date} ${state.memo.time}`) < new Date()) error.push('You must set a date in the future')
 		if (state.memo.repeat.value === 'time' && state.memo.repeatTime == 0) error.push('You must set a repeat time above 0 hours')
 		return error.length <= 0 ? null : error
 	}
