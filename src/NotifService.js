@@ -1,13 +1,11 @@
-import { Alert } from 'react-native'
 import PushNotification from 'react-native-push-notification'
 import { find, remove, removeAll, removeToDelete, update } from './StoreService'
 
 PushNotification.configure({
 	smallIcon: 'ic_notification',
 	onNotification: notification => {
-		console.log(JSON.stringify(notification, null, 2))
-		console.log('Action', notification.action)
 		if (notification.action === 'Snooze') snoozeNotif(notification.title, notification.message)
+		PushNotification.clearLocalNotification(+notification.id)
 	},
 	senderID: '',
 	popInitialNotification: true,
